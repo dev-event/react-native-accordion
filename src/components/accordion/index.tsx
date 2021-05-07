@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Animated, {
   useAnimatedRef,
   measure,
@@ -11,10 +11,10 @@ import Animated, {
   runOnJS,
   useAnimatedReaction,
 } from 'react-native-reanimated';
-import type {LayoutChangeEvent} from 'react-native';
-import {Chevron} from '../chevron';
-import type {AccordionProps} from './types';
-import {styles} from './styles';
+import type { LayoutChangeEvent } from 'react-native';
+import { Chevron } from '../chevron';
+import type { AccordionProps } from './types';
+import { styles } from './styles';
 
 const CollapsedView = ({
   children,
@@ -33,7 +33,7 @@ const CollapsedView = ({
   const aref = useAnimatedRef<View>();
   const open = useSharedValue(false);
   const progress = useDerivedValue(() =>
-    open.value ? withTiming(1) : withTiming(0),
+    open.value ? withTiming(1) : withTiming(0)
   );
 
   const size = useSharedValue(0);
@@ -49,7 +49,7 @@ const CollapsedView = ({
       if (next !== undefined && next !== prev) {
         runOnJS(onChange)(next);
       }
-    },
+    }
   );
 
   const handleCollapsed = useCallback(() => {
@@ -70,7 +70,7 @@ const CollapsedView = ({
         setHeight(measuredHeight);
       }
     },
-    [height],
+    [height]
   );
 
   const renderHeader = useCallback(() => {
@@ -116,4 +116,4 @@ const CollapsedView = ({
   );
 };
 
-export {CollapsedView};
+export { CollapsedView };
