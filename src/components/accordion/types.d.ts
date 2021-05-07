@@ -1,27 +1,73 @@
-import React from 'react';
-import type {AccordionHeadProps} from '../types/header';
-import {chevron} from '../chevron/types';
-import {StyleSheetProperties} from 'react-native';
+import React, { FC } from 'react';
+import { ViewStyle, StyleProp } from 'react-native';
+import type Animated from 'react-native-reanimated';
 
 export interface AccordionProps {
-  state: boolean;
   /**
-   * onchange state hide/show content
+   * Initial snap index
+   * @type boolean
+   * @default false
    */
-  onChange: (index: boolean) => void;
+  initExpand?: boolean;
   /**
-   * default component header collapsed
-   * @see {AccordionHeadProps}
-   * @type React.FC\<AccordionHeadProps\>
+   * Handle height helps to calculate the internal container and sheet layouts,
+   * if `handleHeader` is provided, the library internally will calculate its layout,
+   * unless `handleHeight` is provided.
+   * @type number
    */
-  handleHead?: React.FC<AccordionHeadProps> | null;
-  handleIcon?: React.FC<chevron> | null;
-  handleContentHead?: any;
-  children: React.ReactNode;
-  isUnmounted: boolean;
-  isBackgroundChevron: boolean;
-  styleChevron: StyleSheetProperties;
-  styleHeader: any;
-  activeBackgroundIcon: string;
-  inactiveBackgroundIcon: string;
+  handleCustomTouchableHeight?: number;
+
+  styleTouchable?: Animated.AnimateStyle<ViewStyle>;
+  // components
+  /**
+   * Component header.
+   */
+  handleCustomTouchable?: () => FC | null | undefined;
+
+  /**
+   * function
+   * callback state hide/show content
+   */
+  onChangeState?: (value: boolean) => void;
+
+  /**
+   * A scrollable node or normal view.
+   * @type ReactNode[] | ReactNode
+   */
+  children: (() => React.ReactNode) | React.ReactNode[] | React.ReactNode;
+
+  /**
+   * Component icon.
+   */
+  handleContentTouchable: () => FC | null | undefined;
+  /**
+   * if accordion hide -> unmounted content
+   */
+  isUnmountedContent?: boolean;
+
+  /**
+   *  background for icon arrow
+   */
+  isBackgroundChevron?: boolean;
+
+  /**
+   * Component icon.
+   */
+  handleIcon?: () =>  FC | null | undefined;
+
+  /**
+   * color active background arrow
+   */
+  activeBackgroundIcon?: string;
+  /**
+   * color inactive background arrow
+   */
+  inactiveBackgroundIcon?: string;
+
+  /**
+   * color icon
+   */
+  colorIcon?: string;
+
+  styleChevron?: StyleProp<ViewStyle>;
 }
