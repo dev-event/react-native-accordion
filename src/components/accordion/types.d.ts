@@ -16,7 +16,7 @@ export interface AccordionProps {
    */
   handleHead?: React.FC<AccordionHeadProps> | null;
   handleIcon?: React.FC<chevron> | null;
-  handleContentHead?: React.FC<chevron> | null;
+  handleContentHead?: any;
   children: React.ReactNode;
   isUnmounted: boolean;
   isBackgroundChevron: boolean;

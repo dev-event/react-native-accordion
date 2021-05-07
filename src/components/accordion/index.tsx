@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import Animated, {
   useAnimatedRef,
   measure,
@@ -19,6 +19,7 @@ import { styles } from './styles';
 const CollapsedView = ({
   children,
   handleHead: providerHead,
+  handleContentHead,
   handleIcon,
   activeBackgroundIcon = '#d28a41',
   inactiveBackgroundIcon = '#4191d2',
@@ -74,13 +75,13 @@ const CollapsedView = ({
   );
 
   const renderHeader = useCallback(() => {
-    if (providerHead === null || providerHead === undefined) {
+    if (providerHead === null) {
       return null;
     }
 
     return (
       <Animated.View style={[styles.header, styleHeader]}>
-        <Text style={styles.title}>Sample</Text>
+        {handleContentHead()}
         <Chevron
           progress={progress}
           styleChevron={styleChevron}
@@ -94,6 +95,7 @@ const CollapsedView = ({
   }, [
     providerHead,
     styleHeader,
+    handleContentHead,
     progress,
     styleChevron,
     handleIcon,
