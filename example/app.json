@@ -1,10 +1,10 @@
 {
-  "name": "react-native-accorodion-example",
-  "displayName": "Accorodion Example",
+  "name": "react-native-accordion-example",
+  "displayName": "Accordion Example",
   "expo": {
-    "name": "react-native-accorodion-example",
-    "slug": "react-native-accorodion-example",
-    "description": "Example app for react-native-accorodion",
+    "name": "react-native-accordion-example",
+    "slug": "react-native-accordion-example",
+    "description": "Example app for react-native-accordion",
     "privacy": "public",
     "version": "1.0.0",
     "platforms": [
