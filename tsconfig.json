@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-accordion": ["./src/index"]
+      "react-native-accorodion": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

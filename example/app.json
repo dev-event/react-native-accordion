@@ -1,0 +1,22 @@
+{
+  "name": "react-native-accorodion-example",
+  "displayName": "Accorodion Example",
+  "expo": {
+    "name": "react-native-accorodion-example",
+    "slug": "react-native-accorodion-example",
+    "description": "Example app for react-native-accorodion",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
