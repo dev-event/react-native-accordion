@@ -1,6 +1,6 @@
 # react-native-accordion
 
-this package
+this pacakges
 
 ## Installation
 
