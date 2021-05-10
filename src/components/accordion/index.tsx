@@ -16,7 +16,7 @@ import { styles } from './styles';
 
 const CollapsedView = ({
   children,
-  initExpand = false,
+  // initExpand = false,
   handleIcon,
   onChangeState,
   styleChevron,
@@ -34,7 +34,6 @@ const CollapsedView = ({
     handleCustomTouchableHeight ?? 0
   );
 
-  console.log(initExpand);
   const open = useSharedValue(false);
   const progress = useDerivedValue(() =>
     open.value ? withTiming(1) : withTiming(0)
@@ -49,7 +48,7 @@ const CollapsedView = ({
 
   useAnimatedReaction(
     () => open?.value,
-    (next, prev) => {
+    (next: boolean | undefined, prev) => {
       if (next !== undefined && next !== prev) {
         // @ts-ignore
         runOnJS(onChangeState)(next);
@@ -80,10 +79,10 @@ const CollapsedView = ({
 
   const renderHeader = useCallback(() => {
     return handleCustomTouchable ? (
-      handleCustomTouchable()
+      handleCustomTouchable
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
-        {handleContentTouchable ? handleContentTouchable() : null}
+        {handleContentTouchable ? handleContentTouchable : null}
         <Chevron
           progress={progress}
           colorIcon={colorIcon}

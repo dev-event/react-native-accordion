@@ -1,6 +1,6 @@
 {
-  "name": "react-native-accorodion-example",
-  "description": "Example app for react-native-accorodion",
+  "name": "react-native-accordion-example",
+  "description": "Example app for react-native-accordion",
   "version": "0.0.1",
   "private": true,
   "main": "index",

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import Accorodion from 'react-native-accorodion';
+import Accordion from 'react-native-accordion';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    Accorodion.multiply(3, 7).then(setResult);
+    Accordion.multiply(3, 7).then(setResult);
   }, []);
 
   return (

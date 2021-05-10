@@ -12,7 +12,7 @@ export interface AccordionIconProps {
   /**
    * Component icon.
    */
-  handleIcon?: () => FC | null | undefined;
+  handleIcon?: FC | null;
 
   /**
    * color active background arrow

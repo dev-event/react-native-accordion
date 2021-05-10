@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { ViewStyle, StyleProp } from 'react-native';
+import React, {FC} from 'react';
+import {ViewStyle, StyleProp} from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 export interface AccordionProps {
@@ -22,7 +22,7 @@ export interface AccordionProps {
   /**
    * Component header.
    */
-  handleCustomTouchable?: () => FC | null | undefined;
+  handleCustomTouchable?: FC | null;
 
   /**
    * function
@@ -39,7 +39,7 @@ export interface AccordionProps {
   /**
    * Component icon.
    */
-  handleContentTouchable: () => FC | null | undefined;
+  handleContentTouchable?: FC | null;
   /**
    * if accordion hide -> unmounted content
    */
@@ -53,7 +53,7 @@ export interface AccordionProps {
   /**
    * Component icon.
    */
-  handleIcon?: () =>  FC | null | undefined;
+  handleIcon?: FC | null;
 
   /**
    * color active background arrow

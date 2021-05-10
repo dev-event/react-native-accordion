@@ -2,8 +2,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-accorodion": ["./src/index"]
+      "react-native-accordion": ["./src/index"]
     },
+    "allowJs": true,
+    "checkJs": true,
+    "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,

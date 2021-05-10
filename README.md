@@ -1,21 +1,21 @@
-# react-native-accorodion
+# react-native-accordion
 
-This accordion
+this package
 
 ## Installation
 
 ```sh
-npm install react-native-accorodion
+npm install react-native-accordion
 ```
 
 ## Usage
 
 ```js
-import Accorodion from "react-native-accorodion";
+import Accordion from "react-native-accordion";
 
 // ...
 
-const result = await Accorodion.multiply(3, 7);
+const result = await Accordion.multiply(3, 7);
 ```
 
 ## Contributing
