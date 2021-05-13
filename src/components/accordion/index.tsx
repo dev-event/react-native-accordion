@@ -6,8 +6,6 @@ import Animated, {
   useDerivedValue,
   withTiming,
   runOnUI,
-  runOnJS,
-  useAnimatedReaction,
 } from 'react-native-reanimated';
 import type { LayoutChangeEvent } from 'react-native';
 import { Chevron } from '../chevron';
@@ -15,26 +13,30 @@ import type { AccordionProps } from './types';
 import { styles } from './styles';
 
 const CollapsedView = ({
-  children,
-  // initExpand = false,
+  sizeIcon = 16,
+  initExpand = false,
   handleIcon,
-  onChangeState,
   styleChevron,
+  renderContent,
+  onChangeState,
   styleTouchable,
+  styleContainer,
   isUnmountedContent = false,
   isBackgroundChevron = true,
-  activeBackgroundIcon = '#d28a41',
-  inactiveBackgroundIcon = '#4191d2',
-  colorIcon = '#f44336',
+  activeBackgroundIcon = '#e5f6ff',
+  inactiveBackgroundIcon = '#fff0e4',
+  colorIcon = '#16182b',
   handleCustomTouchable,
   handleContentTouchable,
   handleCustomTouchableHeight,
-}: AccordionProps) => {
+}: // configOpened,
+// configClosed,
+AccordionProps) => {
   const [dimensions, setDimensions] = useState(
     handleCustomTouchableHeight ?? 0
   );
 
-  const open = useSharedValue(false);
+  const open = useSharedValue(initExpand);
   const progress = useDerivedValue(() =>
     open.value ? withTiming(1) : withTiming(0)
   );
@@ -46,16 +48,6 @@ const CollapsedView = ({
     opacity: progress.value === 0 ? 0 : 1,
   }));
 
-  useAnimatedReaction(
-    () => open?.value,
-    (next: boolean | undefined, prev) => {
-      if (next !== undefined && next !== prev) {
-        // @ts-ignore
-        runOnJS(onChangeState)(next);
-      }
-    }
-  );
-
   const handleCollapsed = useCallback(() => {
     if (size.value === 0) {
       runOnUI(() => {
@@ -64,7 +56,8 @@ const CollapsedView = ({
       })();
     }
     open.value = !open.value;
-  }, [dimensions, open, size]);
+    onChangeState && onChangeState(!open.value);
+  }, [dimensions, onChangeState, open, size]);
 
   const handleLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -79,11 +72,12 @@ const CollapsedView = ({
 
   const renderHeader = useCallback(() => {
     return handleCustomTouchable ? (
-      handleCustomTouchable
+      handleCustomTouchable()
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
-        {handleContentTouchable ? handleContentTouchable : null}
+        {handleContentTouchable ? handleContentTouchable() : null}
         <Chevron
+          sizeIcon={sizeIcon}
           progress={progress}
           colorIcon={colorIcon}
           handleIcon={handleIcon}
@@ -103,6 +97,7 @@ const CollapsedView = ({
     inactiveBackgroundIcon,
     isBackgroundChevron,
     progress,
+    sizeIcon,
     styleChevron,
     styleTouchable,
   ]);
@@ -113,8 +108,11 @@ const CollapsedView = ({
         {renderHeader()}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.content, style]}>
-        <View onLayout={handleLayout} style={styles.container}>
-          {isUnmountedContent ? null : children}
+        <View
+          onLayout={handleLayout}
+          style={[styles.container, styleContainer]}
+        >
+          {isUnmountedContent ? null : renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>

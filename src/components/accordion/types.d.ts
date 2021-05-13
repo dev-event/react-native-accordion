@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {ViewStyle, StyleProp} from 'react-native';
+import React, { FC } from 'react';
+import { ViewStyle, StyleProp } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 export interface AccordionProps {
@@ -18,17 +18,20 @@ export interface AccordionProps {
   handleCustomTouchableHeight?: number;
 
   styleTouchable?: Animated.AnimateStyle<ViewStyle>;
+  styleContainer?: Animated.AnimateStyle<ViewStyle>;
   // components
   /**
    * Component header.
    */
-  handleCustomTouchable?: FC | null;
+  handleCustomTouchable?: () => FC | null;
+
+  renderContent?: () => FC | null;
 
   /**
    * function
    * callback state hide/show content
    */
-  onChangeState?: (value: boolean) => void;
+  onChangeState: (value: boolean) => void;
 
   /**
    * A scrollable node or normal view.
@@ -39,7 +42,7 @@ export interface AccordionProps {
   /**
    * Component icon.
    */
-  handleContentTouchable?: FC | null;
+  handleContentTouchable?: () => FC | null;
   /**
    * if accordion hide -> unmounted content
    */
@@ -53,7 +56,7 @@ export interface AccordionProps {
   /**
    * Component icon.
    */
-  handleIcon?: FC | null;
+  handleIcon?: () => FC | null;
 
   /**
    * color active background arrow
@@ -68,6 +71,10 @@ export interface AccordionProps {
    * color icon
    */
   colorIcon?: string;
+  /**
+   * size arrow icon
+   */
+  sizeIcon?: number;
 
   styleChevron?: StyleProp<ViewStyle>;
 }

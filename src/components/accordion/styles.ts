@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   content: {
@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     right: 0,
   },
   header: {
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f7',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 12,
   },
   title: {
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {styles};
+export { styles };
