@@ -24,6 +24,7 @@ const menu = [
     time: '45 MINS AGO',
   },
 ];
+
 const App = () => {
   const handleContentTouchable = useCallback(
     () => (

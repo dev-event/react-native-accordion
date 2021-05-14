@@ -18,7 +18,7 @@ export interface AccordionProps {
   handleCustomTouchableHeight?: number;
 
   styleTouchable?: Animated.AnimateStyle<ViewStyle>;
-  styleContainer?: Animated.AnimateStyle<ViewStyle>;
+  styleContainer?: ViewStyle<ViewStyle>;
   // components
   /**
    * Component header.
