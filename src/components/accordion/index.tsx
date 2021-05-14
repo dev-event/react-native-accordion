@@ -11,8 +11,11 @@ import type { LayoutChangeEvent } from 'react-native';
 import { Chevron } from '../chevron';
 import type { AccordionProps } from './types';
 import { styles } from './styles';
+import { useLayout } from '../../hooks';
 
 const CollapsedView = ({
+  // configOpened,
+  // configClosed,
   isArrow = true,
   sizeIcon = 16,
   colorIcon = '#16182b',
@@ -23,22 +26,19 @@ const CollapsedView = ({
   onChangeState,
   styleTouchable,
   styleContainer,
-  isUnmountOnCollapse = false,
+  // isUnmountOnCollapse = false,
   isBackgroundChevron = true,
   activeBackgroundIcon = '#e5f6ff',
   inactiveBackgroundIcon = '#fff0e4',
   isPointerEvents = false,
   handleCustomTouchable,
   handleContentTouchable,
-  handleCustomTouchableHeight,
-}: // configOpened,
-// configClosed,
+}: // handleCustomTouchableHeight,
 AccordionProps) => {
-  const [dimensions, setDimensions] = useState(
-    handleCustomTouchableHeight ?? 0
-  );
+  const [layout, onLayout] = useLayout();
+  const [isUnmounted, setUnmounted] = useState(initExpand);
 
-  const open = useSharedValue(initExpand);
+  const open = useSharedValue(false);
   const progress = useDerivedValue(() =>
     open.value ? withTiming(1) : withTiming(0)
   );
@@ -54,23 +54,17 @@ AccordionProps) => {
     if (size.value === 0) {
       runOnUI(() => {
         'worklet';
-        size.value = dimensions;
+        size.value = layout?.height;
       })();
     }
     open.value = !open.value;
     onChangeState && onChangeState(!open.value);
-  }, [dimensions, onChangeState, open, size]);
+  }, [layout?.height, onChangeState, open, size]);
 
-  const handleLayout = useCallback(
-    (event: LayoutChangeEvent) => {
-      const measuredHeight: number = event.nativeEvent.layout.height;
-
-      if (dimensions !== measuredHeight) {
-        setDimensions(measuredHeight);
-      }
-    },
-    [dimensions]
-  );
+  // Callback
+  // const handleUnmounted = () => {
+  //   if (isUnmountOnCollapse && !open.value) setUnmounted(false);
+  // };
 
   const renderHeader = useCallback(() => {
     return handleCustomTouchable ? (
@@ -113,15 +107,13 @@ AccordionProps) => {
       <TouchableWithoutFeedback onPress={handleCollapsed}>
         {renderHeader()}
       </TouchableWithoutFeedback>
+      
       <Animated.View
         style={[styles.content, style]}
         pointerEvents={pointerEvents}
       >
-        <View
-          onLayout={handleLayout}
-          style={[styles.container, styleContainer]}
-        >
-          {isUnmountOnCollapse ? null : renderContent ? renderContent() : null}
+        <View onLayout={onLayout} style={[styles.container, styleContainer]}>
+          {isUnmounted ? null : renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>
