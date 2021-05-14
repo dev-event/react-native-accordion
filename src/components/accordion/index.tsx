@@ -13,7 +13,9 @@ import type { AccordionProps } from './types';
 import { styles } from './styles';
 
 const CollapsedView = ({
+  isArrow = true,
   sizeIcon = 16,
+  colorIcon = '#16182b',
   initExpand = false,
   handleIcon,
   styleChevron,
@@ -21,11 +23,11 @@ const CollapsedView = ({
   onChangeState,
   styleTouchable,
   styleContainer,
-  isUnmountedContent = false,
+  isUnmountOnCollapse = false,
   isBackgroundChevron = true,
   activeBackgroundIcon = '#e5f6ff',
   inactiveBackgroundIcon = '#fff0e4',
-  colorIcon = '#16182b',
+  isPointerEvents = false,
   handleCustomTouchable,
   handleContentTouchable,
   handleCustomTouchableHeight,
@@ -76,43 +78,50 @@ AccordionProps) => {
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
         {handleContentTouchable ? handleContentTouchable() : null}
-        <Chevron
-          sizeIcon={sizeIcon}
-          progress={progress}
-          colorIcon={colorIcon}
-          handleIcon={handleIcon}
-          styleChevron={styleChevron}
-          isBackgroundChevron={isBackgroundChevron}
-          activeBackgroundIcon={activeBackgroundIcon}
-          inactiveBackgroundIcon={inactiveBackgroundIcon}
-        />
+        {isArrow ? (
+          <Chevron
+            sizeIcon={sizeIcon}
+            progress={progress}
+            colorIcon={colorIcon}
+            handleIcon={handleIcon}
+            styleChevron={styleChevron}
+            isBackgroundChevron={isBackgroundChevron}
+            activeBackgroundIcon={activeBackgroundIcon}
+            inactiveBackgroundIcon={inactiveBackgroundIcon}
+          />
+        ) : null}
       </Animated.View>
     );
   }, [
-    activeBackgroundIcon,
-    colorIcon,
-    handleContentTouchable,
-    handleCustomTouchable,
-    handleIcon,
-    inactiveBackgroundIcon,
-    isBackgroundChevron,
+    isArrow,
     progress,
     sizeIcon,
+    colorIcon,
+    handleIcon,
     styleChevron,
     styleTouchable,
+    isBackgroundChevron,
+    activeBackgroundIcon,
+    handleCustomTouchable,
+    handleContentTouchable,
+    inactiveBackgroundIcon,
   ]);
 
+  const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
   return (
     <>
       <TouchableWithoutFeedback onPress={handleCollapsed}>
         {renderHeader()}
       </TouchableWithoutFeedback>
-      <Animated.View style={[styles.content, style]}>
+      <Animated.View
+        style={[styles.content, style]}
+        pointerEvents={pointerEvents}
+      >
         <View
           onLayout={handleLayout}
           style={[styles.container, styleContainer]}
         >
-          {isUnmountedContent ? null : renderContent ? renderContent() : null}
+          {isUnmountOnCollapse ? null : renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>
