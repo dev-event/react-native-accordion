@@ -7,40 +7,57 @@ import Animated, {
   withTiming,
   runOnUI,
 } from 'react-native-reanimated';
-import type { LayoutChangeEvent } from 'react-native';
 import { Chevron } from '../chevron';
 import type { AccordionProps } from './types';
 import { styles } from './styles';
 import { useLayout } from '../../hooks';
 
-const CollapsedView = ({
-  // configOpened,
-  // configClosed,
+const AnimatedAccordion = ({
   isArrow = true,
   sizeIcon = 16,
+  disabled = false,
   colorIcon = '#16182b',
   initExpand = false,
   handleIcon,
   styleChevron,
+  contentHeight,
   renderContent,
+  otherProperty,
   onChangeState,
   styleTouchable,
+  configExpanded,
   styleContainer,
-  // isUnmountOnCollapse = false,
-  isBackgroundChevron = true,
-  activeBackgroundIcon = '#e5f6ff',
-  inactiveBackgroundIcon = '#fff0e4',
+  configCollapsed,
   isPointerEvents = false,
+  isBackgroundChevron = true,
+  isUnmountOnCollapse = false,
+  activeBackgroundIcon = '#e5f6ff',
+  onAnimatedEndExpanded,
   handleCustomTouchable,
   handleContentTouchable,
-}: // handleCustomTouchableHeight,
-AccordionProps) => {
-  const [layout, onLayout] = useLayout();
+  onAnimatedEndCollapsed,
+  inactiveBackgroundIcon = '#fff0e4',
+}: AccordionProps) => {
+  const [layout, onLayout] = useLayout(contentHeight);
   const [isUnmounted, setUnmounted] = useState(initExpand);
 
   const open = useSharedValue(false);
+  /**
+   * FIXME add spring
+   */
   const progress = useDerivedValue(() =>
-    open.value ? withTiming(1) : withTiming(0)
+    open.value
+      ? withTiming(1, configExpanded, onAnimatedEndExpanded)
+      : withTiming(0, configCollapsed, handleExpandedCallback)
+  );
+
+  const handleExpandedCallback = useCallback(
+    (isFinished) => {
+      if (isUnmountOnCollapse && !open.value && isFinished) setUnmounted(true);
+
+      onAnimatedEndCollapsed(isFinished);
+    },
+    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
   );
 
   const size = useSharedValue(0);
@@ -60,11 +77,6 @@ AccordionProps) => {
     open.value = !open.value;
     onChangeState && onChangeState(!open.value);
   }, [layout?.height, onChangeState, open, size]);
-
-  // Callback
-  // const handleUnmounted = () => {
-  //   if (isUnmountOnCollapse && !open.value) setUnmounted(false);
-  // };
 
   const renderHeader = useCallback(() => {
     return handleCustomTouchable ? (
@@ -104,10 +116,14 @@ AccordionProps) => {
   const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
   return (
     <>
-      <TouchableWithoutFeedback onPress={handleCollapsed}>
+      <TouchableWithoutFeedback
+        onPress={handleCollapsed}
+        disabled={disabled}
+        {...otherProperty}
+      >
         {renderHeader()}
       </TouchableWithoutFeedback>
-      
+
       <Animated.View
         style={[styles.content, style]}
         pointerEvents={pointerEvents}
@@ -120,4 +136,4 @@ AccordionProps) => {
   );
 };
 
-export { CollapsedView };
+export { AnimatedAccordion };
