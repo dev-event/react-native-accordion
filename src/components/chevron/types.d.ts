@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
-import {FC} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
+import { FC } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 export interface AccordionIconProps {
   progress: Animated.SharedValue<number>;
   sizeIcon?: number;
@@ -13,7 +13,7 @@ export interface AccordionIconProps {
   /**
    * Component icon.
    */
-  handleIcon?: () => FC | null;
+  handleIcon?: (progress: Animated.SharedValue<number>) => FC | null;
 
   /**
    * color active background arrow

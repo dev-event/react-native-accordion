@@ -1,69 +1,80 @@
-import React, { FC } from 'react';
-import { ViewStyle, StyleProp } from 'react-native';
+import { FC } from 'react';
+import { ViewStyle, ViewProps, StyleProp } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 export interface AccordionProps {
   /**
-   * Initial snap index
-   * @type boolean
-   * @default false
+   *  active/inactive TouchableWithoutFeedback
+   */
+  otherProperty?: ViewProps;
+
+  /**
+   *  active/inactive TouchableWithoutFeedback
+   */
+  disabled?: boolean;
+
+  /**
+   *  if active then the collapsible will be expanded on mounting.:
    */
   initExpand?: boolean;
+
   /**
    * Handle height helps to calculate the internal container and sheet layouts,
-   * if `handleHeader` is provided, the library internally will calculate its layout,
-   * unless `handleHeight` is provided.
-   * @type number
+   * if `renderContent` is provided, the library internally will calculate its layout,
+   * unless `contentHeight` is provided.
    */
-  handleCustomTouchableHeight?: number;
+  contentHeight?: number;
 
-  styleTouchable?: Animated.AnimateStyle<ViewStyle>;
-  styleContainer?: ViewStyle<ViewStyle>;
-  // components
   /**
-   * Component header.
+   *
    */
   handleCustomTouchable?: () => FC | null;
 
+  /**
+   *
+   */
   renderContent?: () => FC | null;
+  /**
+   * callback
+   */
+  onAnimatedEndExpanded: (isFinished) => void;
+  /**
+   * callback
+   */
+  onAnimatedEndCollapsed: (isFinished) => void;
 
   /**
-   * function
-   * callback state hide/show content
+   * callback change state hide/show content
    */
   onChangeState: (value: boolean) => void;
 
   /**
-   * A scrollable node or normal view.
-   * @type ReactNode[] | ReactNode
-   */
-  children: (() => React.ReactNode) | React.ReactNode[] | React.ReactNode;
-
-  /**
-   * Component icon.
+   *
    */
   handleContentTouchable?: () => FC | null;
   /**
-   * if accordion hide -> unmounted content
+   *
    */
   isUnmountOnCollapse?: boolean;
 
   /**
-   *  background for icon arrow
+   *  background icon arrow
    */
   isBackgroundChevron?: boolean;
 
   /**
-   * Component icon.
+   * component icon.
    */
   handleIcon?: () => FC | null;
 
   /**
-   * color active background arrow
+   * active background arrow
    */
+
   activeBackgroundIcon?: string;
+
   /**
-   * color inactive background arrow
+   * inactive background arrow
    */
   inactiveBackgroundIcon?: string;
 
@@ -80,5 +91,28 @@ export interface AccordionProps {
 
   isArrow?: boolean;
 
+  /**
+   *
+   */
   styleChevron?: StyleProp<ViewStyle>;
+
+  /**
+   *
+   */
+  styleTouchable?: Animated.AnimateStyle<ViewStyle>;
+
+  /**
+   *
+   */
+  styleContainer?: ViewStyle<ViewStyle>;
+  /**
+   *
+   */
+
+  configExpanded?: Animated.WithTimingConfig;
+
+  /**
+   *
+   */
+  configCollapsed?: Animated.WithTimingConfig;
 }

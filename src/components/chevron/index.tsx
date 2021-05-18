@@ -50,8 +50,8 @@ const Chevron = ({
       return null;
     }
 
-    return handleIcon === undefined ? hasIcon : handleIcon();
-  }, [handleIcon, hasIcon]);
+    return handleIcon === undefined ? hasIcon : handleIcon(progress);
+  }, [handleIcon, hasIcon, progress]);
 
   return (
     <Animated.View style={[styles.container, style, styleChevron]}>
