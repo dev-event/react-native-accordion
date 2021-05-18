@@ -18,7 +18,7 @@ export interface AccordionProps {
   handleCustomTouchableHeight?: number;
 
   styleTouchable?: Animated.AnimateStyle<ViewStyle>;
-  styleContainer?: Animated.AnimateStyle<ViewStyle>;
+  styleContainer?: ViewStyle<ViewStyle>;
   // components
   /**
    * Component header.
@@ -46,7 +46,7 @@ export interface AccordionProps {
   /**
    * if accordion hide -> unmounted content
    */
-  isUnmountedContent?: boolean;
+  isUnmountOnCollapse?: boolean;
 
   /**
    *  background for icon arrow
@@ -67,6 +67,8 @@ export interface AccordionProps {
    */
   inactiveBackgroundIcon?: string;
 
+  isPointerEvents?: false;
+
   /**
    * color icon
    */
@@ -75,6 +77,8 @@ export interface AccordionProps {
    * size arrow icon
    */
   sizeIcon?: number;
+
+  isArrow?: boolean;
 
   styleChevron?: StyleProp<ViewStyle>;
 }

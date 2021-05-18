@@ -42,7 +42,7 @@ const Chevron = ({
       ) : (
         <Path d="M6 9l6 6 6-6" />
       ),
-    [colorIcon, isBackgroundChevron]
+    [colorIcon, isBackgroundChevron, sizeIcon]
   );
 
   const renderIcon = useCallback(() => {
