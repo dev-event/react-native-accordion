@@ -61,7 +61,6 @@ For more complete example open [App.tsx](https://github.com/garganurag893/react-
 - `initExpand?`: boolean
 - `isPointerEvents?`: boolean;
 - `isUnmountOnCollapse?`: boolean;
-- `isBackgroundChevron?`: boolean;
 - `colorIcon?`: string
 - `sizeIcon?`: number
 - `activeBackgroundIcon?`: string;

@@ -1,5 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -28,12 +32,13 @@ const AnimatedAccordion = ({
   configExpanded,
   styleContainer,
   configCollapsed,
+  isStatusFetching = false,
   isPointerEvents = false,
-  isBackgroundChevron = true,
   isUnmountOnCollapse = false,
   activeBackgroundIcon = '#e5f6ff',
   onAnimatedEndExpanded,
   handleCustomTouchable,
+  handleIndicatorFetching,
   handleContentTouchable,
   onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
@@ -78,39 +83,53 @@ const AnimatedAccordion = ({
     onChangeState && onChangeState(!open.value);
   }, [layout?.height, onChangeState, open, size]);
 
+  const hasLoader = useMemo(
+    () =>
+      isStatusFetching ? (
+        handleIndicatorFetching ? (
+          handleIndicatorFetching()
+        ) : (
+          <ActivityIndicator size="small" color="#AAAAAA" />
+        )
+      ) : (
+        <Chevron
+          sizeIcon={sizeIcon}
+          progress={progress}
+          colorIcon={colorIcon}
+          handleIcon={handleIcon}
+          styleChevron={styleChevron}
+          activeBackgroundIcon={activeBackgroundIcon}
+          inactiveBackgroundIcon={inactiveBackgroundIcon}
+        />
+      ),
+    [
+      activeBackgroundIcon,
+      colorIcon,
+      handleIcon,
+      handleIndicatorFetching,
+      inactiveBackgroundIcon,
+      isStatusFetching,
+      progress,
+      sizeIcon,
+      styleChevron,
+    ]
+  );
+
   const renderHeader = useCallback(() => {
     return handleCustomTouchable ? (
       handleCustomTouchable()
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
         {handleContentTouchable ? handleContentTouchable() : null}
-        {isArrow ? (
-          <Chevron
-            sizeIcon={sizeIcon}
-            progress={progress}
-            colorIcon={colorIcon}
-            handleIcon={handleIcon}
-            styleChevron={styleChevron}
-            isBackgroundChevron={isBackgroundChevron}
-            activeBackgroundIcon={activeBackgroundIcon}
-            inactiveBackgroundIcon={inactiveBackgroundIcon}
-          />
-        ) : null}
+        {isArrow ? hasLoader : null}
       </Animated.View>
     );
   }, [
-    isArrow,
-    progress,
-    sizeIcon,
-    colorIcon,
-    handleIcon,
-    styleChevron,
-    styleTouchable,
-    isBackgroundChevron,
-    activeBackgroundIcon,
     handleCustomTouchable,
+    styleTouchable,
     handleContentTouchable,
-    inactiveBackgroundIcon,
+    isArrow,
+    hasLoader,
   ]);
 
   const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
@@ -129,7 +148,11 @@ const AnimatedAccordion = ({
         pointerEvents={pointerEvents}
       >
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
-          {isUnmounted ? null : renderContent ? renderContent() : null}
+          {isUnmounted || isStatusFetching
+            ? null
+            : renderContent
+            ? renderContent()
+            : null}
         </View>
       </Animated.View>
     </>

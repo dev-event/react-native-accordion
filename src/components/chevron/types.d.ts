@@ -4,12 +4,6 @@ import { StyleProp, ViewStyle } from 'react-native';
 export interface AccordionIconProps {
   progress: Animated.SharedValue<number>;
   sizeIcon?: number;
-
-  /**
-   *  background for icon arrow
-   */
-  isBackgroundChevron: boolean;
-
   /**
    * Component icon.
    */
