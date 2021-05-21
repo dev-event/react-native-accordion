@@ -11,11 +11,11 @@ const Chevron = ({
   colorIcon,
   handleIcon,
   styleChevron,
-  isBackgroundChevron,
   activeBackgroundIcon,
   inactiveBackgroundIcon,
 }: AccordionIconProps) => {
   const style = useAnimatedStyle(() => ({
+    // @ts-ignore
     backgroundColor: mixColor(
       progress.value,
       inactiveBackgroundIcon,
@@ -25,26 +25,21 @@ const Chevron = ({
   }));
 
   const hasIcon = useMemo(
-    () =>
-      isBackgroundChevron ? (
-        <Svg
-          width={sizeIcon}
-          height={sizeIcon}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke={colorIcon}
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <Path d="M6 9l6 6 6-6" />
-        </Svg>
-      ) : (
-        <Path d="M6 9l6 6 6-6" />
-      ),
-    [colorIcon, isBackgroundChevron, sizeIcon]
+    () => (
+      <Svg
+        width={sizeIcon}
+        height={sizeIcon}
+        viewBox="0 0 24 24"
+        fill="none"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <Path d="M6 9l6 6 6-6" stroke={colorIcon} />
+      </Svg>
+    ),
+    [colorIcon, sizeIcon]
   );
-
   const renderIcon = useCallback(() => {
     if (handleIcon === null) {
       return null;
@@ -54,7 +49,13 @@ const Chevron = ({
   }, [handleIcon, hasIcon, progress]);
 
   return (
-    <Animated.View style={[styles.container, style, styleChevron]}>
+    <Animated.View
+      style={[
+        styles.container,
+        style,
+        styleChevron,
+      ]}
+    >
       {renderIcon()}
     </Animated.View>
   );

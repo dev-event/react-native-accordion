@@ -11,8 +11,9 @@ import { AnimatedAccordion } from 'react-native-accordion';
 import { useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
+import { Array, Sports } from './index.d.';
 
-const sports: any = [
+const sports: Sports[] = [
   { image: assets.pingpong, title: 'Ping-pong' },
   { image: assets.badminton, title: 'Badminton' },
   { image: assets.baseball, title: 'Baseball' },
@@ -21,7 +22,7 @@ const sports: any = [
   { image: assets.basketball, title: 'Basketball' },
 ];
 
-const events: any = [
+const array: Array[] = [
   {
     image: assets.flag_1,
     title: 'La League',
@@ -64,7 +65,7 @@ const HomeScreen = () => {
   );
 
   const handleContent = useCallback(
-    (data) =>
+    data =>
       data.map(({ command, icon, score, type }) => (
         <Event
           key={command.one}
@@ -129,16 +130,18 @@ const HomeScreen = () => {
       {hasBanner}
       {hasSports}
 
-      {events.map(({ image, events, county, title }) => (
+      {array.map(({ image, events, county, title }) => (
         <AnimatedAccordion
           key={title}
           // data={events} FIXME
-          onChangeState={(value: boolean) => console.log(value)}
+          // onChangeState={(value: boolean) => console.log(value)}
           handleContentTouchable={handleContentTouchable}
           renderContent={() => handleContent(events)}
-          styleTouchable={styles.touchable}
-          styleContainer={styles.content}
-          // isBackgroundChevron={'#181829'} //FIXME
+          styleTouchable={styles.touchable} //  work
+          styleContainer={styles.content} // work
+          // colorIcon={'#FFFFFF'} work
+          // handleIndicatorFetching={}
+          // isStatusFetching={true} //work
         />
       ))}
     </SafeAreaView>

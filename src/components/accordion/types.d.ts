@@ -28,7 +28,17 @@ export interface AccordionProps {
   /**
    *
    */
+  isStatusFetching: boolean;
+
+  /**
+   *
+   */
   handleCustomTouchable?: () => FC | null;
+
+  /**
+   *
+   */
+  handleIndicatorFetching?: () => FC | null;
 
   /**
    *
@@ -57,10 +67,6 @@ export interface AccordionProps {
    */
   isUnmountOnCollapse?: boolean;
 
-  /**
-   *  background icon arrow
-   */
-  isBackgroundChevron?: boolean;
 
   /**
    * component icon.
@@ -78,7 +84,7 @@ export interface AccordionProps {
    */
   inactiveBackgroundIcon?: string;
 
-  isPointerEvents?: false;
+  isPointerEvents?: boolean;
 
   /**
    * color icon
