@@ -57,7 +57,7 @@ const AnimatedAccordion = ({
   );
 
   const handleExpandedCallback = useCallback(
-    (isFinished) => {
+    isFinished => {
       if (isUnmountOnCollapse && !open.value && isFinished) setUnmounted(true);
 
       onAnimatedEndCollapsed(isFinished);

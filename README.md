@@ -1,4 +1,4 @@
-## Буду благодарен за отзыв
+## Thanks
 <p>Please, click on ⭐ button.</p>
 
 
@@ -11,15 +11,10 @@
 - [Props](#props)
 - [Methods](#methods)
 - [FAQ](#faq)
-  - [Is it supported and tested both on android and iOS?](#is-it-supported-and-tested-both-on-android-and-ios)
-  - [NSURLResponse allHeaderFields: unrecognized selector sent to instance XX crash?](#nsurlresponse-allheaderfields-unrecognized-selector-sent-to-instance-xx-crash)
-- [Contributing](#contributing)
-  - [Step 1](#step-1)
-  - [Step 2](#step-2)
-  - [Step 3](#step-3)
 - [Support](#support)
 - [License](#license)
 - [Hire](#hire)
+
 
 ## Installation
 
@@ -41,6 +36,13 @@ and package:
 ```bash
 $ yarn add react-native-accordion
 ```
+## Built with ❤️ and
+
+- [expo](https://www.npmjs.com/package/react-native)
+- [react-native](https://www.npmjs.com/package/react-native)
+- [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/)
+
+
 
 ## Features
 
@@ -54,6 +56,8 @@ For more complete example open [App.tsx](https://github.com/garganurag893/react-
 ```tsx
 
 ```
+
+
 
 ## Props
 
@@ -80,6 +84,14 @@ For more complete example open [App.tsx](https://github.com/garganurag893/react-
 
 - `onChangeState`: (value: boolean) => boolean
 
+
+## 🎉 Example
+
+Checkout the example [here](https://github.com/timelessco/react-native-reanimated-switch/tree/master/example/RNSearch).
+
+## ✌️ Contributing
+
+Pull requests are always welcome! Feel free to open a new GitHub issue for any changes that can be made.
 
 ## Support
 

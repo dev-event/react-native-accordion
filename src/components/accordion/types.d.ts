@@ -84,7 +84,7 @@ export interface AccordionProps {
    */
   inactiveBackgroundIcon?: string;
 
-  isPointerEvents?: false;
+  isPointerEvents?: boolean;
 
   /**
    * color icon

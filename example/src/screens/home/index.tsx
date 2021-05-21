@@ -65,7 +65,7 @@ const HomeScreen = () => {
   );
 
   const handleContent = useCallback(
-    (data) =>
+    data =>
       data.map(({ command, icon, score, type }) => (
         <Event
           key={command.one}
@@ -134,7 +134,7 @@ const HomeScreen = () => {
         <AnimatedAccordion
           key={title}
           // data={events} FIXME
-          onChangeState={(value: boolean) => console.log(value)}
+          // onChangeState={(value: boolean) => console.log(value)}
           handleContentTouchable={handleContentTouchable}
           renderContent={() => handleContent(events)}
           styleTouchable={styles.touchable} //  work
