@@ -97,7 +97,7 @@ Pull requests are always welcome! Feel free to open a new GitHub issue for any c
 
 Reach out to me at one of the following places!
 
-- Medium at <a href="https://medium.com/@garganurag893" target="_blank">https://medium.com/@garganurag893 </a>
+- Medium at <a href="#" target="_blank">Aliaksei Petrusevich</a>
 
 
 ## License
