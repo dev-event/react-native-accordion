@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import { ViewStyle, ViewProps, StyleProp } from 'react-native';
+import {FC} from 'react';
+import {ViewStyle, ViewProps} from 'react-native';
 import type Animated from 'react-native-reanimated';
 
-export interface AccordionProps {
+export interface AnimatedAccordionProps {
   /**
    *  active/inactive TouchableWithoutFeedback
    */
@@ -47,11 +47,11 @@ export interface AccordionProps {
   /**
    * callback
    */
-  onAnimatedEndExpanded: (isFinished) => void;
+  onAnimatedEndExpanded: (isFinished: any) => void;
   /**
    * callback
    */
-  onAnimatedEndCollapsed: (isFinished) => void;
+  onAnimatedEndCollapsed: (isFinished: any) => void;
 
   /**
    * callback change state hide/show content
@@ -66,7 +66,6 @@ export interface AccordionProps {
    *
    */
   isUnmountOnCollapse?: boolean;
-
 
   /**
    * component icon.
@@ -100,7 +99,7 @@ export interface AccordionProps {
   /**
    *
    */
-  styleChevron?: StyleProp<ViewStyle>;
+  styleChevron?: ViewStyle;
 
   /**
    *
@@ -110,7 +109,7 @@ export interface AccordionProps {
   /**
    *
    */
-  styleContainer?: ViewStyle<ViewStyle>;
+  styleContainer?: ViewStyle;
   /**
    *
    */

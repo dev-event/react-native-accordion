@@ -1,9 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import {
-  ActivityIndicator,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import React, {useCallback, useMemo, useState} from 'react';
+import {ActivityIndicator, TouchableWithoutFeedback, View} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -11,10 +7,10 @@ import Animated, {
   withTiming,
   runOnUI,
 } from 'react-native-reanimated';
-import { Chevron } from '../chevron';
-import type { AccordionProps } from './types';
-import { styles } from './styles';
-import { useLayout } from '../../hooks';
+import {Chevron} from '../chevron';
+import type {AnimatedAccordionProps} from './types';
+import {styles} from './styles';
+import {useLayout} from '../../hooks';
 
 const AnimatedAccordion = ({
   isArrow = true,
@@ -42,10 +38,10 @@ const AnimatedAccordion = ({
   handleContentTouchable,
   onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
-}: AccordionProps) => {
+}: AnimatedAccordionProps) => {
   const [layout, onLayout] = useLayout(contentHeight);
   const [isUnmounted, setUnmounted] = useState(initExpand);
-
+  //
   const open = useSharedValue(false);
   /**
    * FIXME add spring
@@ -53,16 +49,18 @@ const AnimatedAccordion = ({
   const progress = useDerivedValue(() =>
     open.value
       ? withTiming(1, configExpanded, onAnimatedEndExpanded)
-      : withTiming(0, configCollapsed, handleExpandedCallback)
+      : withTiming(0, configCollapsed, handleExpandedCallback),
   );
 
   const handleExpandedCallback = useCallback(
     (isFinished: boolean) => {
-      if (isUnmountOnCollapse && !open.value && isFinished) setUnmounted(true);
+      if (isUnmountOnCollapse && !open.value && isFinished) {
+        setUnmounted(true);
+      }
 
       onAnimatedEndCollapsed(isFinished);
     },
-    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
+    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value],
   );
 
   const size = useSharedValue(0);
@@ -112,7 +110,7 @@ const AnimatedAccordion = ({
       progress,
       sizeIcon,
       styleChevron,
-    ]
+    ],
   );
 
   const renderHeader = useCallback(() => {
@@ -138,21 +136,15 @@ const AnimatedAccordion = ({
       <TouchableWithoutFeedback
         onPress={handleCollapsed}
         disabled={disabled}
-        {...otherProperty}
-      >
+        {...otherProperty}>
         {renderHeader()}
       </TouchableWithoutFeedback>
 
       <Animated.View
         style={[styles.content, style]}
-        pointerEvents={pointerEvents}
-      >
+        pointerEvents={pointerEvents}>
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
-          {isUnmounted || isStatusFetching
-            ? null
-            : renderContent
-            ? renderContent()
-            : null}
+          {isUnmounted ? null : renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>
