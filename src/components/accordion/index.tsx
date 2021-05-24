@@ -11,10 +11,10 @@ import Animated, {
   withTiming,
   runOnUI,
 } from 'react-native-reanimated';
-import { Chevron } from './components/chevron';
-import type { AnimatedAccordionProps } from './components/accordion/types';
-import { styles } from './components/accordion/styles';
-import { useLayout } from './hooks';
+import { Chevron } from '../chevron';
+import type { AnimatedAccordionProps } from '../accordion/types';
+import { styles } from '../accordion/styles';
+import { useLayout } from '../../hooks';
 
 const AnimatedAccordion = ({
   isArrow = true,

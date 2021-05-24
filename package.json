@@ -5,8 +5,8 @@
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index.tsx",
-  "source": "src/index",
+  "react-native": "src/index.ts",
+  "source": "src/index.ts",
   "files": [
     "src",
     "lib",
@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
+    "@react-native-community/bob": "^0.16.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^2.0.0",
     "@types/jest": "^26.0.23",
@@ -77,9 +78,7 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*",
-    "react-native-gesture-handler": ">=1.8.0",
-    "react-native-reanimated": ">=1.9.0"
+    "react-native": "*"
   },
   "jest": {
     "preset": "react-native",
@@ -147,9 +146,18 @@
     "useTabs": false
   },
   "dependencies": {
-    "react-native-reanimated": ">=2.0.0",
+    "react-native-reanimated": "2.1.0",
     "react-native-redash": "16.0.11",
     "react-native-svg": "12.1.1"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   },
   "react-native-builder-bob": {
     "source": "src",
