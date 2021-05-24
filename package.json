@@ -1,7 +1,7 @@
 {
   "name": "react-native-accordion",
   "version": "0.1.0",
-  "description": "this pacakges",
+  "description": "A performant interactive collapsed view with fully configurable options 🧬",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
@@ -35,7 +35,11 @@
     "react-native",
     "expo",
     "ios",
-    "android"
+    "android",
+    "collapsed",
+    "accordion",
+    "expanded",
+    "animated view"
   ],
   "repository": "https://github.com/dev-event/react-native-accordion",
   "author": "Aliaksei Petrusevich <effectwaater@gmail.com> (https://github.com/dev-event)",
