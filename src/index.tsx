@@ -1,5 +1,9 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {ActivityIndicator, TouchableWithoutFeedback, View} from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,10 +11,10 @@ import Animated, {
   withTiming,
   runOnUI,
 } from 'react-native-reanimated';
-import {Chevron} from '../chevron';
-import type {AnimatedAccordionProps} from './types';
-import {styles} from './styles';
-import {useLayout} from '../../hooks';
+import { Chevron } from './components/chevron';
+import type { AnimatedAccordionProps } from './components/accordion/types';
+import { styles } from './components/accordion/styles';
+import { useLayout } from './hooks';
 
 const AnimatedAccordion = ({
   isArrow = true,
@@ -49,7 +53,7 @@ const AnimatedAccordion = ({
   const progress = useDerivedValue(() =>
     open.value
       ? withTiming(1, configExpanded, onAnimatedEndExpanded)
-      : withTiming(0, configCollapsed, handleExpandedCallback),
+      : withTiming(0, configCollapsed, handleExpandedCallback)
   );
 
   const handleExpandedCallback = useCallback(
@@ -60,7 +64,7 @@ const AnimatedAccordion = ({
 
       onAnimatedEndCollapsed(isFinished);
     },
-    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value],
+    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
   );
 
   const size = useSharedValue(0);
@@ -110,7 +114,7 @@ const AnimatedAccordion = ({
       progress,
       sizeIcon,
       styleChevron,
-    ],
+    ]
   );
 
   const renderHeader = useCallback(() => {
@@ -136,13 +140,15 @@ const AnimatedAccordion = ({
       <TouchableWithoutFeedback
         onPress={handleCollapsed}
         disabled={disabled}
-        {...otherProperty}>
+        {...otherProperty}
+      >
         {renderHeader()}
       </TouchableWithoutFeedback>
 
       <Animated.View
         style={[styles.content, style]}
-        pointerEvents={pointerEvents}>
+        pointerEvents={pointerEvents}
+      >
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
           {isUnmounted ? null : renderContent ? renderContent() : null}
         </View>
