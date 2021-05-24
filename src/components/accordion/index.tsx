@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, FC, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -16,7 +16,7 @@ import type { AnimatedAccordionProps } from '../accordion/types';
 import { styles } from '../accordion/styles';
 import { useLayout } from '../../hooks';
 
-const AnimatedAccordion = ({
+const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   isArrow = true,
   sizeIcon = 16,
   disabled = false,
@@ -42,7 +42,7 @@ const AnimatedAccordion = ({
   handleContentTouchable,
   onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
-}: AnimatedAccordionProps) => {
+}) => {
   const [layout, onLayout] = useLayout(contentHeight);
   const [isUnmounted, setUnmounted] = useState(initExpand);
   //

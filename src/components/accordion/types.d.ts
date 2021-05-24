@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {ViewStyle, ViewProps} from 'react-native';
+import { FC } from 'react';
+import { ViewStyle, ViewProps } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 export interface AnimatedAccordionProps {

@@ -49,13 +49,7 @@ const Chevron = ({
   }, [handleIcon, hasIcon, progress]);
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        style,
-        styleChevron,
-      ]}
-    >
+    <Animated.View style={[styles.container, style, styleChevron]}>
       {renderIcon()}
     </Animated.View>
   );
