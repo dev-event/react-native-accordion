@@ -1,7 +1,7 @@
 {
   "name": "react-native-accordion",
   "version": "0.1.0",
-  "description": "this accordion",
+  "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -29,12 +29,18 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "clean": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start --reset-cache"
   },
   "keywords": [
     "react-native",
+    "expo",
     "ios",
-    "android"
+    "android",
+    "collapsed",
+    "accordion",
+    "expanded",
+    "animated view"
   ],
   "repository": "https://github.com/dev-event/react-native-accordion",
   "author": "Aliaksei Petrusevich <effectwaater@gmail.com> (https://github.com/dev-event)",
@@ -69,7 +75,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": "^2.1.0"
   },
   "jest": {
     "preset": "react-native",

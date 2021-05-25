@@ -1,7 +1,7 @@
 import React, { useCallback, FC, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
-  TouchableWithoutFeedback,
+  Pressable,
   View,
 } from 'react-native';
 import Animated, {
@@ -24,7 +24,7 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   initExpand = false,
   handleIcon,
   styleChevron,
-  contentHeight,
+  contentHeight = 0,
   renderContent,
   otherProperty,
   onChangeState,
@@ -43,10 +43,10 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
 }) => {
-  const [layout, onLayout] = useLayout(contentHeight);
-  const [isUnmounted, setUnmounted] = useState(initExpand);
+  const [layout, onLayout] = useLayout(0);
+  const [isUnmounted, setUnmounted] = useState(false);
   //
-  const open = useSharedValue(false);
+  const open = useSharedValue(initExpand);
   /**
    * FIXME add spring
    */
@@ -67,7 +67,7 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
     [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
   );
 
-  const size = useSharedValue(0);
+  const size = useSharedValue(initExpand ? contentHeight : 0);
 
   const style = useAnimatedStyle(() => ({
     height: size.value * progress.value + 1,
@@ -137,17 +137,17 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
   return (
     <>
-      <TouchableWithoutFeedback
+      <Pressable
         onPress={handleCollapsed}
         disabled={disabled}
         {...otherProperty}
       >
         {renderHeader()}
-      </TouchableWithoutFeedback>
+      </Pressable>
 
       <Animated.View
         style={[styles.content, style]}
-        pointerEvents={pointerEvents}
+        // pointerEvents={pointerEvents}
       >
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
           {isUnmounted ? null : renderContent ? renderContent() : null}

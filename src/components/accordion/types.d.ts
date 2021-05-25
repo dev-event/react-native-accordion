@@ -23,7 +23,7 @@ export interface AnimatedAccordionProps {
    * if `renderContent` is provided, the library internally will calculate its layout,
    * unless `contentHeight` is provided.
    */
-  contentHeight?: number;
+  contentHeight: number;
 
   /**
    *
@@ -47,11 +47,11 @@ export interface AnimatedAccordionProps {
   /**
    * callback
    */
-  onAnimatedEndExpanded: (isFinished: any) => void;
+  onAnimatedEndExpanded: (isFinished: boolean) => void;
   /**
    * callback
    */
-  onAnimatedEndCollapsed: (isFinished: any) => void;
+  onAnimatedEndCollapsed: (isFinished: boolean) => void;
 
   /**
    * callback change state hide/show content
