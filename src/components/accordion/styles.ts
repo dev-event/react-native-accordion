@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  indicator:{
+    marginLeft:  12
+  }
 });
 
 export { styles };

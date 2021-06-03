@@ -1,7 +1,7 @@
-import React, { useCallback, FC, useMemo, useState } from 'react';
+import React, { useCallback, FC, useMemo, useState, useEffect } from 'react';
 import {
   ActivityIndicator,
-  Pressable,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Animated, {
@@ -33,41 +33,46 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   styleContainer,
   configCollapsed,
   isStatusFetching = false,
-  isPointerEvents = false,
-  isUnmountOnCollapse = false,
+  isUnmountOnCollapse = false, //FIXME
   activeBackgroundIcon = '#e5f6ff',
-  onAnimatedEndExpanded,
   handleCustomTouchable,
   handleIndicatorFetching,
   handleContentTouchable,
-  onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
 }) => {
   const [layout, onLayout] = useLayout(0);
-  const [isUnmounted, setUnmounted] = useState(false);
-  //
+  const [isUnmounted, setUnmounted] = useState(isUnmountOnCollapse);
+
   const open = useSharedValue(initExpand);
-  /**
-   * FIXME add spring
-   */
+  const size = useSharedValue(contentHeight);
+
+  useEffect(() => {
+    runOnUI(() => {
+      'worklet';
+      if (initExpand && layout) {
+        size.value = layout.height;
+      }
+    })();
+  }, [initExpand, layout, layout.height, size]);
+
+  useEffect(() => {
+    runOnUI(() => {
+      'worklet';
+      if (!isStatusFetching && layout) {
+        size.value = layout.height;
+      }
+    })();
+  }, [isStatusFetching, layout, size]);
+
   const progress = useDerivedValue(() =>
     open.value
-      ? withTiming(1, configExpanded, onAnimatedEndExpanded)
-      : withTiming(0, configCollapsed, handleExpandedCallback)
+      ? withTiming(1, configExpanded)
+      : withTiming(0, configCollapsed, () => {
+          if (isUnmounted) {
+            setUnmounted(true);
+          }
+        })
   );
-
-  const handleExpandedCallback = useCallback(
-    (isFinished: boolean) => {
-      if (isUnmountOnCollapse && !open.value && isFinished) {
-        setUnmounted(true);
-      }
-
-      onAnimatedEndCollapsed(isFinished);
-    },
-    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
-  );
-
-  const size = useSharedValue(initExpand ? contentHeight : 0);
 
   const style = useAnimatedStyle(() => ({
     height: size.value * progress.value + 1,
@@ -91,7 +96,11 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
         handleIndicatorFetching ? (
           handleIndicatorFetching()
         ) : (
-          <ActivityIndicator size="small" color="#AAAAAA" />
+          <ActivityIndicator
+            size="small"
+            color="#AAAAAA"
+            style={styles.indicator}
+          />
         )
       ) : (
         <Chevron
@@ -134,21 +143,17 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
     hasLoader,
   ]);
 
-  const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
   return (
     <>
-      <Pressable
+      <TouchableWithoutFeedback
         onPress={handleCollapsed}
-        disabled={disabled}
+        disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
         {renderHeader()}
-      </Pressable>
+      </TouchableWithoutFeedback>
 
-      <Animated.View
-        style={[styles.content, style]}
-        // pointerEvents={pointerEvents}
-      >
+      <Animated.View style={[styles.content, style]}>
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
           {isUnmounted ? null : renderContent ? renderContent() : null}
         </View>
@@ -157,4 +162,4 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   );
 };
 
-export default AnimatedAccordion;
+export { AnimatedAccordion };

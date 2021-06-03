@@ -44,14 +44,6 @@ export interface AnimatedAccordionProps {
    *
    */
   renderContent?: () => FC | null;
-  /**
-   * callback
-   */
-  onAnimatedEndExpanded: (isFinished: boolean) => void;
-  /**
-   * callback
-   */
-  onAnimatedEndCollapsed: (isFinished: boolean) => void;
 
   /**
    * callback change state hide/show content

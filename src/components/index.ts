@@ -1,1 +1,1 @@
-export { default } from './accordion';
+export { AnimatedAccordion } from './accordion';
