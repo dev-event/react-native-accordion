@@ -1,25 +1,25 @@
 {
   "name": "react-native-accordion",
   "version": "0.1.0",
-  "description": "this pacakges",
+  "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
-  "module": "lib/module/index.js",
-  "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index.ts",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
   "source": "src/index",
   "files": [
     "src",
     "lib",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
     "android",
     "ios",
     "cpp",
     "react-native-accordion.podspec",
     "!lib/typescript/example",
     "!android/build",
-    "!ios/build"
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
   ],
   "scripts": {
     "test": "jest",
@@ -29,12 +29,18 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "clean": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start --reset-cache"
   },
   "keywords": [
     "react-native",
+    "expo",
     "ios",
-    "android"
+    "android",
+    "collapsed",
+    "accordion",
+    "expanded",
+    "animated view"
   ],
   "repository": "https://github.com/dev-event/react-native-accordion",
   "author": "Aliaksei Petrusevich <effectwaater@gmail.com> (https://github.com/dev-event)",
@@ -50,10 +56,9 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^2.0.0",
-    "@types/jest": "^26.0.23",
-    "@types/react": "^17.0.5",
-    "@types/react-native": "^0.64.5",
-    "@types/react-test-renderer": "^17.0.1",
+    "@types/jest": "^26.0.0",
+    "@types/react": "^16.9.19",
+    "@types/react-native": "0.62.13",
     "commitlint": "^11.0.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^7.0.0",
@@ -63,14 +68,15 @@
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react": "16.13.1",
-    "react-native": "0.64.1",
-    "react-native-builder-bob": "^0.18.1",
-    "release-it": "^14.6.2",
-    "typescript": "^4.2.4"
+    "react-native": "0.63.4",
+    "react-native-builder-bob": "^0.18.0",
+    "release-it": "^14.2.2",
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": "^2.1.0"
   },
   "jest": {
     "preset": "react-native",
@@ -143,13 +149,17 @@
     "targets": [
       "commonjs",
       "module",
-      "typescript"
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ]
   },
   "dependencies": {
-    "@react-native-community/bob": "^0.17.1",
-    "react-native-reanimated": ">=1.9.0",
-    "react-native-redash": "16.0.11",
-    "react-native-svg": "12.1.1"
+    "react-native-reanimated": "^2.1.0",
+    "react-native-redash": "^16.0.11",
+    "react-native-svg": "^12.1.1"
   }
 }

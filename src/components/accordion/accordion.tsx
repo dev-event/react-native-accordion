@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, FC, useMemo, useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -12,11 +12,11 @@ import Animated, {
   runOnUI,
 } from 'react-native-reanimated';
 import { Chevron } from '../chevron';
-import type { AccordionProps } from './types';
-import { styles } from './styles';
+import type { AnimatedAccordionProps } from '../accordion/types';
+import { styles } from '../accordion/styles';
 import { useLayout } from '../../hooks';
 
-const AnimatedAccordion = ({
+const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   isArrow = true,
   sizeIcon = 16,
   disabled = false,
@@ -24,7 +24,7 @@ const AnimatedAccordion = ({
   initExpand = false,
   handleIcon,
   styleChevron,
-  contentHeight,
+  contentHeight = 0,
   renderContent,
   otherProperty,
   onChangeState,
@@ -33,39 +33,46 @@ const AnimatedAccordion = ({
   styleContainer,
   configCollapsed,
   isStatusFetching = false,
-  isPointerEvents = false,
-  isUnmountOnCollapse = false,
+  isUnmountOnCollapse = false, //FIXME
   activeBackgroundIcon = '#e5f6ff',
-  onAnimatedEndExpanded,
   handleCustomTouchable,
   handleIndicatorFetching,
   handleContentTouchable,
-  onAnimatedEndCollapsed,
   inactiveBackgroundIcon = '#fff0e4',
-}: AccordionProps) => {
-  const [layout, onLayout] = useLayout(contentHeight);
-  const [isUnmounted, setUnmounted] = useState(initExpand);
+}) => {
+  const [layout, onLayout] = useLayout(0);
+  const [isUnmounted, setUnmounted] = useState(isUnmountOnCollapse);
 
-  const open = useSharedValue(false);
-  /**
-   * FIXME add spring
-   */
+  const open = useSharedValue(initExpand);
+  const size = useSharedValue(contentHeight);
+
+  useEffect(() => {
+    runOnUI(() => {
+      'worklet';
+      if (initExpand && layout) {
+        size.value = layout.height;
+      }
+    })();
+  }, [initExpand, layout, layout.height, size]);
+
+  useEffect(() => {
+    runOnUI(() => {
+      'worklet';
+      if (!isStatusFetching && layout) {
+        size.value = layout.height;
+      }
+    })();
+  }, [isStatusFetching, layout, size]);
+
   const progress = useDerivedValue(() =>
     open.value
-      ? withTiming(1, configExpanded, onAnimatedEndExpanded)
-      : withTiming(0, configCollapsed, handleExpandedCallback)
+      ? withTiming(1, configExpanded)
+      : withTiming(0, configCollapsed, () => {
+          if (isUnmounted) {
+            setUnmounted(true);
+          }
+        })
   );
-
-  const handleExpandedCallback = useCallback(
-    (isFinished: boolean) => {
-      if (isUnmountOnCollapse && !open.value && isFinished) setUnmounted(true);
-
-      onAnimatedEndCollapsed(isFinished);
-    },
-    [isUnmountOnCollapse, onAnimatedEndCollapsed, open.value]
-  );
-
-  const size = useSharedValue(0);
 
   const style = useAnimatedStyle(() => ({
     height: size.value * progress.value + 1,
@@ -89,7 +96,11 @@ const AnimatedAccordion = ({
         handleIndicatorFetching ? (
           handleIndicatorFetching()
         ) : (
-          <ActivityIndicator size="small" color="#AAAAAA" />
+          <ActivityIndicator
+            size="small"
+            color="#AAAAAA"
+            style={styles.indicator}
+          />
         )
       ) : (
         <Chevron
@@ -132,31 +143,23 @@ const AnimatedAccordion = ({
     hasLoader,
   ]);
 
-  const pointerEvents = !isPointerEvents && open.value ? 'none' : 'auto';
   return (
     <>
       <TouchableWithoutFeedback
         onPress={handleCollapsed}
-        disabled={disabled}
+        disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
         {renderHeader()}
       </TouchableWithoutFeedback>
 
-      <Animated.View
-        style={[styles.content, style]}
-        pointerEvents={pointerEvents}
-      >
+      <Animated.View style={[styles.content, style]}>
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
-          {isUnmounted || isStatusFetching
-            ? null
-            : renderContent
-            ? renderContent()
-            : null}
+          {isUnmounted ? null : renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>
   );
 };
 
-export default AnimatedAccordion;
+export { AnimatedAccordion };

@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { AnimatedAccordion } from 'react-native-accordion';
+import AnimatedAccordion from 'react-native-accordion';
 import { useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
@@ -65,7 +65,7 @@ const HomeScreen = () => {
   );
 
   const handleContent = useCallback(
-    data =>
+    (data) =>
       data.map(({ command, icon, score, type }) => (
         <Event
           key={command.one}
@@ -139,6 +139,8 @@ const HomeScreen = () => {
           renderContent={() => handleContent(events)}
           styleTouchable={styles.touchable} //  work
           styleContainer={styles.content} // work
+          contentHeight={60}
+          initExpand={false}
           // colorIcon={'#FFFFFF'} work
           // handleIndicatorFetching={}
           // isStatusFetching={true} //work
