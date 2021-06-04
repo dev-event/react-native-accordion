@@ -70,8 +70,6 @@ export interface AnimatedAccordionProps {
    */
   inactiveBackgroundIcon?: string;
 
-  isPointerEvents?: boolean;
-
   /**
    * color icon
    */

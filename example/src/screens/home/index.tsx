@@ -167,7 +167,7 @@ const HomeScreen = () => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
         {hasHeader}
         {hasBanner}
         {hasSports}
