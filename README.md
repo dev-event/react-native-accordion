@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="./gif/giphy.gif" height="400" title="Accordion Animated"   alt="Accordion Animated" style="box-shadow: 0 20px 30px 3px rgba(9, 9, 16, 0.2);">
+  <img src="./gif/giphy.gif" height="500" title="Accordion Animated"   alt="Accordion Animated" style="box-shadow: 0 20px 30px 3px rgba(9, 9, 16, 0.2);">
 </div>
 
 <br>
 
 <h1 align="center">React Native Accordion (Reanimated 2)</h1>
-<p align="center">Performance oriented React Native Accordion.  A simple component of a common use case of collapsible - a visible title with a collapsible view beneath it.</p>
+<p align="center">Performance oriented React Native Accordion 60 FPS.  A simple component of a common use case of collapsible - a visible title with a collapsible view beneath it.</p>
 <h6 align="center">Made with ❤️ by developer for developers</h6>
 
 <br>
@@ -48,9 +48,8 @@ $ expo install react-native-reanimated
 
 <p>React Native (0.60+):</p>
 
-
 ```bash
-$ yarn add react-native-reanimated@2
+$ yarn add react-native-reanimated
 ```
 and package:
 
@@ -58,9 +57,6 @@ and package:
 $ yarn add react-native-accordion
 ```
 
-- [expo](https://www.npmjs.com/package/react-native)
-- [react-native](https://www.npmjs.com/package/react-native)
-- [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/)
 
 
 
@@ -74,10 +70,11 @@ $ yarn add react-native-accordion
 
 ## Usage
 
-For more complete example open [App.tsx](https://github.com/dev-event/react-native-accordion/master/example/App.tsx)
+For more complete example open [App.tsx](https://github.com/dev-event/react-native-accordion)
 
 ```tsx
 import React, { useState, useCallback } from "react";
+import { StyleSheet, View, Text,  StatusBar} from "react-native";
 import { AnimatedAccordion } from 'react-native-accordion';
 
 
@@ -96,21 +93,45 @@ const App: React.FC = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <View style={styles.content}>
-        <SafeAreaView style={styles.body}>
           <AnimatedAccordion
-            onChangeState={value => setShow(value)}
+            sizeIcon={16}
+            styleChevron={styles.icon}
             renderContent={handleContent}
-            styleContainer={styles.content}
-            styleTouchable={styles.button}
+            styleTouchable={styles.touchable}
+            activeBackgroundIcon={theme.light_gray}
+            inactiveBackgroundIcon={theme.light_gray}
             handleContentTouchable={handleContentTouchable}
           />
-        </SafeAreaView>
       </View>
     </>
   );
 };
 
 
+const styles = StyleSheet.create({
+  content:{
+    flex: 1,
+    backgroundColor: "#FFFFFF"
+  },
+  touchable: {
+    backgroundColor: '#181829',
+    height: 50,
+  },
+  title: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '500',
+  },
+  message: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '500',
+  },
+  icon: {
+    height: 24,
+    width: 24,
+  },
+});
 
 ```
 
@@ -120,8 +141,6 @@ const App: React.FC = () => {
 
 - `isArrow?`: boolean
 - `initExpand?`: boolean
-- `isPointerEvents?`: boolean;
-- `isUnmountOnCollapse?`: boolean;
 - `colorIcon?`: string
 - `sizeIcon?`: number
 - `activeBackgroundIcon?`: string;
@@ -139,22 +158,32 @@ const App: React.FC = () => {
 
 ## Methods
 
-- `onChangeState`: (value: boolean) => boolean
+- `onChangeState`: (isShowView: boolean) => boolean
+
+<h2 id="built-with">Built With ❤️</h2>
+
+- [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated)
+- [react-native-redash](https://github.com/wcandillon/react-native-redash)
+- [react-native-svg](https://github.com/react-native-community/react-native-svg)
+- [@react-native-community/bob](https://github.com/react-native-community/bob)
+
 
 
 ## 🎉 Example
 
-Checkout the example [here](https://github.com/dev-event/react-native-accordion/example/src/screens/home).
+Checkout the example [here](https://github.com/dev-event/react-native-accordion).
 
 ## ✌️ Contributing
 
 Pull requests are always welcome! Feel free to open a new GitHub issue for any changes that can be made.
 
-## Support
+## Author
 
 Reach out to me at one of the following places!
 
 - E-mail <a href="#" target="_blank">effectwaater@gmail.com</a>
+- Medium at <a href="https://medium.com/@effectwaaters" target="_blank">https://medium.com/@effectwaaters </a>
+- Instagram at <a href="https://www.instagram.com/dev_event/" target="_blank">https://www.instagram.com/dev_event/ </a>
 
 
 ## License
