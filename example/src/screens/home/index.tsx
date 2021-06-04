@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import AnimatedAccordion from 'react-native-accordion';
+import { AnimatedAccordion } from 'react-native-accordion';
 import { useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
@@ -41,23 +41,64 @@ const array: Array[] = [
           one: 3,
           two: 4,
         },
+        type: 'KL',
+      },
+    ],
+  },
+
+  {
+    image: assets.flag_2,
+    title: 'Basketball League',
+    county: 'Belarus',
+    events: [
+      {
+        command: {
+          one: 'BATE',
+          two: 'Liverpoll',
+        },
+        icon: {
+          one: assets.real_betis,
+          two: assets.tottenham,
+        },
+        score: {
+          one: 3,
+          two: 4,
+        },
         type: 'HT',
+      },
+    ],
+  },
+  {
+    image: assets.flag_1,
+    title: 'Football League',
+    county: 'Belarus',
+    events: [
+      {
+        command: {
+          one: 'Real Madrid',
+          two: 'Moscow',
+        },
+        icon: {
+          one: assets.real_betis,
+          two: assets.tottenham,
+        },
+        score: {
+          one: 3,
+          two: 4,
+        },
+        type: 'HR',
       },
     ],
   },
 ];
 const HomeScreen = () => {
   const handleContentTouchable = useCallback(
-    () => (
+    (title, image, county) => (
       <View style={styles.row}>
-        <Image
-          source={assets.flag_1}
-          resizeMode={'contain'}
-          style={styles.flag_1}
-        />
+        <Image source={image} resizeMode={'contain'} style={styles.flag_1} />
         <View>
-          <Text style={styles.league}>Notifications</Text>
-          <Text style={styles.message}>Sample</Text>
+          <Text style={styles.league}>{title}</Text>
+          <Text style={styles.message}>{county}</Text>
         </View>
       </View>
     ),
@@ -126,26 +167,22 @@ const HomeScreen = () => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      {hasHeader}
-      {hasBanner}
-      {hasSports}
-
-      {array.map(({ image, events, county, title }) => (
-        <AnimatedAccordion
-          key={title}
-          // data={events} FIXME
-          // onChangeState={(value: boolean) => console.log(value)}
-          handleContentTouchable={handleContentTouchable}
-          renderContent={() => handleContent(events)}
-          styleTouchable={styles.touchable} //  work
-          styleContainer={styles.content} // work
-          contentHeight={60}
-          initExpand={false}
-          // colorIcon={'#FFFFFF'} work
-          // handleIndicatorFetching={}
-          // isStatusFetching={true} //work
-        />
-      ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {hasHeader}
+        {hasBanner}
+        {hasSports}
+        {array.map(({ image, events, county, title }) => (
+          <AnimatedAccordion
+            key={title}
+            handleContentTouchable={() =>
+              handleContentTouchable(title, image, county)
+            }
+            renderContent={() => handleContent(events)}
+            styleTouchable={styles.touchable}
+            styleContainer={styles.content}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };

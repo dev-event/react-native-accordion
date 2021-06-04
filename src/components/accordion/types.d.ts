@@ -55,11 +55,6 @@ export interface AnimatedAccordionProps {
    */
   handleContentTouchable?: () => FC | null;
   /**
-   *
-   */
-  isUnmountOnCollapse?: boolean;
-
-  /**
    * component icon.
    */
   handleIcon?: () => FC | null;
