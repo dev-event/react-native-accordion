@@ -82,11 +82,11 @@ const App: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
 
   const handleContentTouchable = useCallback(() => {
-    return <Text>Sample header</Text>
+    return <Text style={styles.title}>Sample header</Text>
   }, [])
 
   const handleContent = useCallback(() => {
-    return <Text>Sample content</Text>
+    return <Text style={styles.message}>Sample content</Text>
   }, [])
 
   return (

@@ -1,6 +1,6 @@
 {
-  "name": "react-native-accordion",
-  "version": "0.1.0",
+  "name": "@dev-event/react-native-accordion",
+  "version": "0.1.3",
   "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -24,7 +24,6 @@
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
