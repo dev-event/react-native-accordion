@@ -1,1 +1,0 @@
-export { AnimatedAccordion } from './accordion';

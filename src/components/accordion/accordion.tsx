@@ -1,4 +1,4 @@
-import React, { useCallback, FC, useMemo, useState, useEffect } from 'react';
+import React, { useCallback, FC, useMemo, useEffect } from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -33,7 +33,6 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   styleContainer,
   configCollapsed,
   isStatusFetching = false,
-  isUnmountOnCollapse = false, //FIXME
   activeBackgroundIcon = '#e5f6ff',
   handleCustomTouchable,
   handleIndicatorFetching,
@@ -41,7 +40,6 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   inactiveBackgroundIcon = '#fff0e4',
 }) => {
   const [layout, onLayout] = useLayout(0);
-  const [isUnmounted, setUnmounted] = useState(isUnmountOnCollapse);
 
   const open = useSharedValue(initExpand);
   const size = useSharedValue(contentHeight);
@@ -65,13 +63,7 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   }, [isStatusFetching, layout, size]);
 
   const progress = useDerivedValue(() =>
-    open.value
-      ? withTiming(1, configExpanded)
-      : withTiming(0, configCollapsed, () => {
-          if (isUnmounted) {
-            setUnmounted(true);
-          }
-        })
+    open.value ? withTiming(1, configExpanded) : withTiming(0, configCollapsed)
   );
 
   const style = useAnimatedStyle(() => ({
@@ -155,7 +147,7 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
 
       <Animated.View style={[styles.content, style]}>
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
-          {isUnmounted ? null : renderContent ? renderContent() : null}
+          {renderContent ? renderContent() : null}
         </View>
       </Animated.View>
     </>
