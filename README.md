@@ -97,6 +97,7 @@ const App: React.FC = () => {
             sizeIcon={16}
             styleChevron={styles.icon}
             renderContent={handleContent}
+            onChangeState={(isShow) => setShow(isShow)}
             styleTouchable={styles.touchable}
             activeBackgroundIcon={theme.light_gray}
             inactiveBackgroundIcon={theme.light_gray}
