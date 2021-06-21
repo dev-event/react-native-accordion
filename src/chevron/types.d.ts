@@ -1,7 +1,7 @@
 import Animated from 'react-native-reanimated';
 import { FC } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-export interface AccordionIconProps {
+export interface IChevronProps {
   progress: Animated.SharedValue<number>;
   sizeIcon?: number;
   /**

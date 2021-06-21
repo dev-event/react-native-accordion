@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ViewStyle, ViewProps } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
-export interface AnimatedAccordionProps {
+export interface IAccordionProps {
   /**
    *  active/inactive TouchableWithoutFeedback
    */
@@ -49,6 +49,16 @@ export interface AnimatedAccordionProps {
    * callback change state hide/show content
    */
   onChangeState: (value: boolean) => void;
+
+  /**
+   *
+   */
+  onAnimatedEndExpanded: () => void;
+
+  /**
+   *
+   */
+  onAnimatedEndCollapsed: () => void;
 
   /**
    *

@@ -10,13 +10,14 @@ import Animated, {
   useDerivedValue,
   withTiming,
   runOnUI,
+  runOnJS,
 } from 'react-native-reanimated';
-import { Chevron } from '../chevron';
-import type { AnimatedAccordionProps } from '../accordion/types';
-import { styles } from '../accordion/styles';
-import { useLayout } from '../../hooks';
+import Chevron from '../chevron';
+import type { IAccordionProps } from './types';
+import { styles } from './styles';
+import { useLayout } from '../hooks';
 
-const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
+const AnimatedAccordion: FC<IAccordionProps> = ({
   isArrow = true,
   sizeIcon = 16,
   disabled = false,
@@ -35,9 +36,11 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   isStatusFetching = false,
   activeBackgroundIcon = '#e5f6ff',
   handleCustomTouchable,
-  handleIndicatorFetching,
+  onAnimatedEndExpanded,
+  onAnimatedEndCollapsed,
   handleContentTouchable,
   inactiveBackgroundIcon = '#fff0e4',
+  handleIndicatorFetching,
 }) => {
   const [layout, onLayout] = useLayout(0);
 
@@ -63,7 +66,15 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   }, [isStatusFetching, layout, size]);
 
   const progress = useDerivedValue(() =>
-    open.value ? withTiming(1, configExpanded) : withTiming(0, configCollapsed)
+    open.value
+      ? withTiming(1, configExpanded, () => {
+          'worklet';
+          runOnJS(onAnimatedEndExpanded)();
+        })
+      : withTiming(0, configCollapsed, () => {
+          'worklet';
+          runOnJS(onAnimatedEndCollapsed)();
+        })
   );
 
   const style = useAnimatedStyle(() => ({
@@ -154,4 +165,4 @@ const AnimatedAccordion: FC<AnimatedAccordionProps> = ({
   );
 };
 
-export { AnimatedAccordion };
+export default AnimatedAccordion;

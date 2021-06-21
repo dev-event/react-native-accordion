@@ -1,3 +1,3 @@
-export { AnimatedAccordion } from './components/accordion';
+export { default } from './accordion';
 // default types
-export type { AnimatedAccordionProps } from './components/accordion/types';
+export type { IAccordionProps } from './accordion';
