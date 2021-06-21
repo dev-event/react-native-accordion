@@ -75,7 +75,7 @@ For more complete example open [App.tsx](https://github.com/dev-event/react-nati
 ```tsx
 import React, { useState, useCallback } from "react";
 import { StyleSheet, View, Text,  StatusBar} from "react-native";
-import { AnimatedAccordion } from 'react-native-accordion';
+import AnimatedAccordion from 'react-native-accordion';
 
 
 const App: React.FC = () => {
@@ -97,6 +97,7 @@ const App: React.FC = () => {
             sizeIcon={16}
             styleChevron={styles.icon}
             renderContent={handleContent}
+            onChangeState={(isShow) => setShow(isShow)}
             styleTouchable={styles.touchable}
             activeBackgroundIcon={theme.light_gray}
             inactiveBackgroundIcon={theme.light_gray}
@@ -147,6 +148,8 @@ const styles = StyleSheet.create({
 - `inactiveBackgroundIcon?`: string;
 - `contentHeight?`:  number
 - `handleIcon?`:  () => void
+- `onAnimatedEndExpanded?`:  () => void
+- `onAnimatedEndCollapsed?`:  () => void
 - `handleCustomTouchable?`:  () => void
 - `handleContentTouchable?`:  () => void
 - `renderContent?`:  () => void;
@@ -191,5 +194,3 @@ Reach out to me at one of the following places!
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-
-[react-native-country-picker-modal]: https://github.com/xcarpentier/react-native-country-picker-modal

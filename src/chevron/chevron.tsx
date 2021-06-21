@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { mix, mixColor } from 'react-native-redash';
-import type { AccordionIconProps } from './types';
+import type { IChevronProps } from './types';
 
 const Chevron = ({
   sizeIcon,
@@ -13,7 +13,7 @@ const Chevron = ({
   styleChevron,
   activeBackgroundIcon,
   inactiveBackgroundIcon,
-}: AccordionIconProps) => {
+}: IChevronProps) => {
   const style = useAnimatedStyle(() => ({
     // @ts-ignore
     backgroundColor: mixColor(
@@ -55,7 +55,7 @@ const Chevron = ({
   );
 };
 
-export { Chevron };
+export default Chevron;
 
 const styles = StyleSheet.create({
   container: {

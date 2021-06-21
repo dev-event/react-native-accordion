@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { AnimatedAccordion } from 'react-native-accordion';
+import AnimatedAccordion from '../../../../src';
 import { useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
@@ -167,13 +167,18 @@ const HomeScreen = () => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         {hasHeader}
         {hasBanner}
         {hasSports}
         {array.map(({ image, events, county, title }) => (
           <AnimatedAccordion
             key={title}
+            onAnimatedEndExpanded={() => console.log('expanded')}
+            onAnimatedEndCollapsed={() => console.log('collapsed')}
             handleContentTouchable={() =>
               handleContentTouchable(title, image, county)
             }
