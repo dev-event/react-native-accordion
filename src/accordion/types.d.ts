@@ -53,12 +53,12 @@ export interface IAccordionProps {
   /**
    *
    */
-  onAnimatedEndExpanded: () => void;
+  onAnimatedEndExpanded?: () => void;
 
   /**
    *
    */
-  onAnimatedEndCollapsed: () => void;
+  onAnimatedEndCollapsed?: () => void;
 
   /**
    *
