@@ -10,7 +10,6 @@ import Animated, {
   useDerivedValue,
   withTiming,
   runOnUI,
-  runOnJS,
 } from 'react-native-reanimated';
 import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
@@ -68,12 +67,10 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   const progress = useDerivedValue(() =>
     open.value
       ? withTiming(1, configExpanded, () => {
-          'worklet';
-          runOnJS(onAnimatedEndExpanded)();
+          onAnimatedEndExpanded && onAnimatedEndExpanded();
         })
       : withTiming(0, configCollapsed, () => {
-          'worklet';
-          runOnJS(onAnimatedEndCollapsed)();
+          onAnimatedEndCollapsed && onAnimatedEndCollapsed();
         })
   );
 
