@@ -70,7 +70,7 @@ $ yarn add react-native-accordion
 
 ## Usage
 
-For more complete example open [App.tsx](https://github.com/dev-event/react-native-accordion)
+For more complete example open [App.tsx](https://github.com/dev-event/react-native-accordion/blob/main/example/src/App.tsx)
 
 ```tsx
 import React, { useState, useCallback } from "react";
@@ -141,9 +141,12 @@ const styles = StyleSheet.create({
 ## Props
 
 - `isArrow?`: boolean
+- `disabled?`: boolean
 - `initExpand?`: boolean
 - `colorIcon?`: string
 - `sizeIcon?`: number
+- `otherProperty?`: ViewProps
+- `isStatusFetching?`: boolean
 - `activeBackgroundIcon?`: string;
 - `inactiveBackgroundIcon?`: string;
 - `contentHeight?`:  number
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
 - `onAnimatedEndCollapsed?`:  () => void
 - `handleCustomTouchable?`:  () => void
 - `handleContentTouchable?`:  () => void
+- `handleIndicatorFetching?`:  () => void
 - `renderContent?`:  () => void;
 - `configExpanded?`: object;
 - `configCollapsed?`: object;
@@ -174,7 +178,7 @@ const styles = StyleSheet.create({
 
 ## 🎉 Example
 
-Checkout the example [here](https://github.com/dev-event/react-native-accordion).
+Checkout the example [here](https://github.com/dev-event/react-native-accordion/tree/main/example/src).
 
 ## ✌️ Contributing
 
