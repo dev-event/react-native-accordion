@@ -75,7 +75,7 @@ For more complete example open [App.tsx](https://github.com/dev-event/react-nati
 ```tsx
 import React, { useState, useCallback } from "react";
 import { StyleSheet, View, Text,  StatusBar} from "react-native";
-import AnimatedAccordion from 'react-native-accordion';
+import AnimatedAccordion from "@dev-event/react-native-accordion";
 
 
 const App: React.FC = () => {
