@@ -42,19 +42,19 @@
 
 
 ```bash
-$ expo install @dev_event/react-native-reanimated
+$ expo install @dev-event/react-native-accordion
 ```
 
 
 <p>React Native (0.60+):</p>
 
 ```bash
-$ yarn add @dev_event/react-native-reanimated
+$ yarn add @dev-event/react-native-accordion
 ```
 and package:
 
 ```bash
-$ yarn add @dev_event/react-native-reanimated
+$ yarn add @dev-event/react-native-accordion
 ```
 
 
