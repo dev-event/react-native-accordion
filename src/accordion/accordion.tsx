@@ -1,4 +1,4 @@
-import React, { useCallback, FC, useMemo, useEffect } from 'react';
+import React, { useCallback, FC, useMemo, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -10,6 +10,7 @@ import Animated, {
   useDerivedValue,
   withTiming,
   runOnUI,
+  runOnJS,
 } from 'react-native-reanimated';
 import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
@@ -33,6 +34,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   styleContainer,
   configCollapsed,
   isStatusFetching = false,
+  isUnmountedContent = false,
   activeBackgroundIcon = '#e5f6ff',
   handleCustomTouchable,
   onAnimatedEndExpanded,
@@ -42,9 +44,10 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   handleIndicatorFetching,
 }) => {
   const [layout, onLayout] = useLayout(0);
-
   const open = useSharedValue(initExpand);
   const size = useSharedValue(contentHeight);
+  const [isUnmounted, setUnmountedContent] =
+    useState<boolean>(isUnmountedContent);
 
   useEffect(() => {
     runOnUI(() => {
@@ -67,10 +70,11 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   const progress = useDerivedValue(() =>
     open.value
       ? withTiming(1, configExpanded, () => {
-          onAnimatedEndExpanded && onAnimatedEndExpanded();
+          onAnimatedEndExpanded && runOnJS(onAnimatedEndExpanded)();
         })
       : withTiming(0, configCollapsed, () => {
-          onAnimatedEndCollapsed && onAnimatedEndCollapsed();
+          onAnimatedEndCollapsed && runOnJS(onAnimatedEndCollapsed)();
+          if (isUnmountedContent) runOnJS(setUnmountedContent)(true);
         })
   );
 
@@ -81,6 +85,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
 
   const handleCollapsed = useCallback(() => {
     if (size.value === 0) {
+      runOnUI(setUnmountedContent)(false);
       runOnUI(() => {
         'worklet';
         size.value = layout?.height;
@@ -143,6 +148,14 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
     hasLoader,
   ]);
 
+  const content = useCallback(() => {
+    if (isUnmounted && !open.value) {
+      return null;
+    }
+
+    return renderContent ? renderContent() : null;
+  }, [isUnmounted, open.value, renderContent]);
+
   return (
     <>
       <TouchableWithoutFeedback
@@ -155,7 +168,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
 
       <Animated.View style={[styles.content, style]}>
         <View onLayout={onLayout} style={[styles.container, styleContainer]}>
-          {renderContent ? renderContent() : null}
+          {content()}
         </View>
       </Animated.View>
     </>

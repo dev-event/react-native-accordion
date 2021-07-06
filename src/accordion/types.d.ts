@@ -26,6 +26,16 @@ export interface IAccordionProps {
   contentHeight: number;
 
   /**
+   *  unmounted content
+   */
+  isUnmountedContent?: boolean;
+
+  /**
+   *  unmounted content
+   */
+  delayUnmounted?: number;
+
+  /**
    *
    */
   isStatusFetching: boolean;
@@ -43,7 +53,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  renderContent?: () => FC | null;
+  renderContent?: () => JSX.Element | null;
 
   /**
    * callback change state hide/show content
@@ -63,7 +73,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleContentTouchable?: () => FC | null;
+  handleContentTouchable?: () => JSX.Element | null;
   /**
    * component icon.
    */

@@ -1,1 +1,1 @@
-export * from './use-layout';
+export { default as useLayout } from './use-layout';
