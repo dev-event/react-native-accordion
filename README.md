@@ -42,19 +42,19 @@
 
 
 ```bash
-$ expo install react-native-reanimated
+$ expo install @dev_event/react-native-reanimated
 ```
 
 
 <p>React Native (0.60+):</p>
 
 ```bash
-$ yarn add react-native-reanimated
+$ yarn add @dev_event/react-native-reanimated
 ```
 and package:
 
 ```bash
-$ yarn add react-native-accordion
+$ yarn add @dev_event/react-native-reanimated
 ```
 
 
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
 - `sizeIcon?`: number
 - `otherProperty?`: ViewProps
 - `isStatusFetching?`: boolean
+- `isUnmountedContent?`: boolean
 - `activeBackgroundIcon?`: string;
 - `inactiveBackgroundIcon?`: string;
 - `contentHeight?`:  number

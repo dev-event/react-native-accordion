@@ -2,7 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@dev_event/react-native-accordion": ["./src/index"]
+      "@dev_event/react-native-accordion": [
+        "./src/index"
+      ]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -30,5 +32,5 @@
     "strict": false,
     "noImplicitAny": false,
     "target": "esnext"
-  }
+  },
 }

@@ -28,4 +28,4 @@ const useLayout = (defaultHeight?: number) => {
   return [layout, onLayout] as const;
 };
 
-export { useLayout };
+export default useLayout;
