@@ -1,6 +1,6 @@
 {
   "name": "@dev-event/react-native-accordion",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
