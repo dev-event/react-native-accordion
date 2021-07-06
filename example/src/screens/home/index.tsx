@@ -11,7 +11,7 @@ import AnimatedAccordion from '../../../../src';
 import { useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
-import { Array, Sports } from './index.d.';
+import { Array, Sports } from './types';
 
 const sports: Sports[] = [
   { image: assets.pingpong, title: 'Ping-pong' },
@@ -92,19 +92,6 @@ const array: Array[] = [
   },
 ];
 const HomeScreen = () => {
-  const handleContentTouchable = useCallback(
-    (title, image, county) => (
-      <View style={styles.row}>
-        <Image source={image} resizeMode={'contain'} style={styles.flag_1} />
-        <View>
-          <Text style={styles.league}>{title}</Text>
-          <Text style={styles.message}>{county}</Text>
-        </View>
-      </View>
-    ),
-    []
-  );
-
   const handleContent = useCallback(
     (data) =>
       data.map(({ command, icon, score, type }) => (
@@ -177,11 +164,22 @@ const HomeScreen = () => {
         {array.map(({ image, events, county, title }) => (
           <AnimatedAccordion
             key={title}
+            isUnmountedContent={false}
             onAnimatedEndExpanded={() => console.log('expanded')}
             onAnimatedEndCollapsed={() => console.log('collapsed')}
-            handleContentTouchable={() =>
-              handleContentTouchable(title, image, county)
-            }
+            handleContentTouchable={() => (
+              <View style={styles.row}>
+                <Image
+                  source={image}
+                  resizeMode={'contain'}
+                  style={styles.flag_1}
+                />
+                <View>
+                  <Text style={styles.league}>{title}</Text>
+                  <Text style={styles.message}>{county}</Text>
+                </View>
+              </View>
+            )}
             renderContent={() => handleContent(events)}
             styleTouchable={styles.touchable}
             styleContainer={styles.content}
