@@ -135,35 +135,6 @@ const styles = StyleSheet.create({
 
 ```
 
-
-
-## Props
-
-- `ref?`: ref
-- `isArrow?`: boolean
-- `disabled?`: boolean
-- `initExpand?`: boolean
-- `colorIcon?`: string
-- `sizeIcon?`: number
-- `otherProperty?`: ViewProps
-- `isStatusFetching?`: boolean
-- `isUnmountedContent?`: boolean
-- `activeBackgroundIcon?`: string;
-- `inactiveBackgroundIcon?`: string;
-- `contentHeight?`:  number
-- `handleIcon?`:  () => void
-- `onAnimatedEndExpanded?`:  () => void
-- `onAnimatedEndCollapsed?`:  () => void
-- `handleCustomTouchable?`:  () => void
-- `handleContentTouchable?`:  () => void
-- `handleIndicatorFetching?`:  () => void
-- `renderContent?`:  () => void;
-- `configExpanded?`: object;
-- `configCollapsed?`: object;
-- `styleChevron?`: `StyleProp<ViewStyle>`;
-- `styleTouchable?`: `StyleProp<ViewStyle>`;
-- `styleContainer?`: `StyleProp<ViewStyle>`;
-
 ## Props
 
 | name                         | description                                                                                                   | required | type                                                | default |
