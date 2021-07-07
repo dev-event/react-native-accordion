@@ -31,11 +31,6 @@ export interface IAccordionProps {
   isUnmountedContent?: boolean;
 
   /**
-   *  unmounted content
-   */
-  delayUnmounted?: number;
-
-  /**
    *
    */
   isStatusFetching: boolean;

@@ -5,7 +5,8 @@ import {
   Text,
   SafeAreaView,
   Image,
-  ScrollView, TouchableOpacity,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import AnimatedAccordion from '../../../../src';
 import { FC, useCallback, useRef } from 'react';
@@ -163,14 +164,15 @@ const HomeScreen: FC = () => {
         {hasHeader}
         {hasBanner}
         {hasSports}
-        <TouchableOpacity onPress={() => accordionRef.current?.getHeightContent()}>
+        <TouchableOpacity
+          onPress={() => accordionRef.current?.getHeightContent()}
+        >
           <Text>tes</Text>
         </TouchableOpacity>
         {array.map(({ image, events, county, title }) => (
           <AnimatedAccordion
             ref={accordionRef}
             key={title}
-            isUnmountedContent={false}
             onAnimatedEndExpanded={() => console.log('expanded')}
             onAnimatedEndCollapsed={() => null}
             handleContentTouchable={() => (
