@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
 
 ## Props
 
+- `ref?`: ref
 - `isArrow?`: boolean
 - `disabled?`: boolean
 - `initExpand?`: boolean
@@ -166,7 +167,8 @@ const styles = StyleSheet.create({
 
 ## Methods
 
-- `onChangeState`: (isShowView: boolean) => boolean
+- `onChangeState?`: (isShowView: boolean) => void
+- `openAccordion`: () => void
 
 <h2 id="built-with">Built With ❤️</h2>
 

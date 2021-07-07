@@ -1,4 +1,12 @@
-import React, { useCallback, FC, useMemo, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  forwardRef,
+  useMemo,
+  useEffect,
+  useState,
+  useImperativeHandle,
+  Ref,
+} from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -17,37 +25,44 @@ import type { IAccordionProps } from './types';
 import { styles } from './styles';
 import { useLayout } from '../hooks';
 
-const AnimatedAccordion: FC<IAccordionProps> = ({
-  isArrow = true,
-  sizeIcon = 16,
-  disabled = false,
-  colorIcon = '#16182b',
-  initExpand = false,
-  handleIcon,
-  styleChevron,
-  contentHeight = 0,
-  renderContent,
-  otherProperty,
-  onChangeState,
-  styleTouchable,
-  configExpanded,
-  styleContainer,
-  configCollapsed,
-  isStatusFetching = false,
-  isUnmountedContent = false,
-  activeBackgroundIcon = '#e5f6ff',
-  handleCustomTouchable,
-  onAnimatedEndExpanded,
-  onAnimatedEndCollapsed,
-  handleContentTouchable,
-  inactiveBackgroundIcon = '#fff0e4',
-  handleIndicatorFetching,
-}) => {
+export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
+  //props configuration
+  const {
+    isArrow = true,
+    sizeIcon = 16,
+    disabled = false,
+    colorIcon = '#16182b',
+    initExpand = false,
+    handleIcon,
+    styleChevron,
+    contentHeight = 0,
+    renderContent,
+    otherProperty,
+    onChangeState,
+    styleTouchable,
+    configExpanded,
+    styleContainer,
+    configCollapsed,
+    isStatusFetching = false,
+    isUnmountedContent = false,
+    activeBackgroundIcon = '#e5f6ff',
+    handleCustomTouchable,
+    onAnimatedEndExpanded,
+    onAnimatedEndCollapsed,
+    handleContentTouchable,
+    inactiveBackgroundIcon = '#fff0e4',
+    handleIndicatorFetching,
+  } = props;
+
   const [layout, onLayout] = useLayout(0);
   const open = useSharedValue(initExpand);
   const size = useSharedValue(contentHeight);
   const [isUnmounted, setUnmountedContent] =
     useState<boolean>(isUnmountedContent);
+
+  useImperativeHandle(ref, () => ({
+    openAccordion
+  }));
 
   useEffect(() => {
     runOnUI(() => {
@@ -83,7 +98,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
     opacity: progress.value === 0 ? 0 : 1,
   }));
 
-  const handleCollapsed = useCallback(() => {
+  const openAccordion = useCallback(() => {
     if (size.value === 0) {
       runOnUI(setUnmountedContent)(false);
       runOnUI(() => {
@@ -159,7 +174,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   return (
     <>
       <TouchableWithoutFeedback
-        onPress={handleCollapsed}
+        onPress={openAccordion}
         disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
@@ -173,6 +188,4 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
       </Animated.View>
     </>
   );
-};
-
-export default AnimatedAccordion;
+});

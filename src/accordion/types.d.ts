@@ -58,7 +58,7 @@ export interface IAccordionProps {
   /**
    * callback change state hide/show content
    */
-  onChangeState: (value: boolean) => void;
+  onChangeState?: (value: boolean) => void;
 
   /**
    *
