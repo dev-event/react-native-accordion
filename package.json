@@ -118,19 +118,7 @@
     "extends": [
       "@react-native-community",
       "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
+    ]
   },
   "eslintIgnore": [
     "node_modules/",
@@ -158,6 +146,7 @@
     ]
   },
   "dependencies": {
+    "invariant": "^2.2.4",
     "react-native-reanimated": "^2.1.0",
     "react-native-redash": "^16.0.11",
     "react-native-svg": "^12.1.1"

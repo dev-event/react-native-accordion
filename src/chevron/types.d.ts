@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
 import { FC } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 export interface IChevronProps {
   progress: Animated.SharedValue<number>;
   sizeIcon?: number;
@@ -18,6 +18,6 @@ export interface IChevronProps {
    */
   inactiveBackgroundIcon: string;
 
-  styleChevron?: StyleProp<ViewStyle>;
+  styleChevron?: Animated.AnimateStyle<ViewStyle>;
   colorIcon?: string;
 }
