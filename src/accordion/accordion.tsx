@@ -24,18 +24,30 @@ import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
 import { styles } from './styles';
 import { useLayout } from '../hooks';
+import {
+  DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
+  DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
+  DEFAULT_EXPANDED_CONTENT_ACCORDION,
+  DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
+  DEFAULT_DISABLED_HEAD_ACCORDION,
+  DEFAULT_PROGRESS_LOADING_API,
+  DEFAULT_SIZE_TINT_CHEVRON,
+  DEFAULT_VISIBLE_CHEVRON,
+  DEFAULT_HEIGHT_CONTENT,
+  DEFAULT_TINT_CHEVRON,
+} from './constant';
 
 export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   //props configuration
   const {
-    isArrow = true,
-    sizeIcon = 16,
-    disabled = false,
-    colorIcon = '#16182b',
-    initExpand = false,
+    isArrow = DEFAULT_VISIBLE_CHEVRON,
+    sizeIcon = DEFAULT_SIZE_TINT_CHEVRON,
+    disabled = DEFAULT_DISABLED_HEAD_ACCORDION,
+    colorIcon = DEFAULT_TINT_CHEVRON,
+    initExpand = DEFAULT_EXPANDED_CONTENT_ACCORDION,
     handleIcon,
     styleChevron,
-    contentHeight = 0,
+    contentHeight = DEFAULT_HEIGHT_CONTENT,
     renderContent,
     otherProperty,
     onChangeState,
@@ -43,14 +55,14 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     configExpanded,
     styleContainer,
     configCollapsed,
-    isStatusFetching = false,
-    isUnmountedContent = false,
-    activeBackgroundIcon = '#e5f6ff',
+    isStatusFetching = DEFAULT_PROGRESS_LOADING_API,
+    isUnmountedContent = DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
+    activeBackgroundIcon = DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
     handleCustomTouchable,
     onAnimatedEndExpanded,
     onAnimatedEndCollapsed,
     handleContentTouchable,
-    inactiveBackgroundIcon = '#fff0e4',
+    inactiveBackgroundIcon = DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
     handleIndicatorFetching,
   } = props;
 
@@ -61,7 +73,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     useState<boolean>(isUnmountedContent);
 
   useImperativeHandle(ref, () => ({
-    openAccordion
+    openAccordion,
   }));
 
   useEffect(() => {
