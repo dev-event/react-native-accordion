@@ -6,9 +6,10 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import AnimatedAccordion from '../../../../src';
-import { useCallback } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
 import { Array, Sports } from './types';
@@ -91,7 +92,9 @@ const array: Array[] = [
     ],
   },
 ];
-const HomeScreen = () => {
+const HomeScreen: FC = () => {
+  const accordionRef = useRef(null);
+
   const handleContent = useCallback(
     (data) =>
       data.map(({ command, icon, score, type }) => (
@@ -161,12 +164,17 @@ const HomeScreen = () => {
         {hasHeader}
         {hasBanner}
         {hasSports}
+        <TouchableOpacity
+          onPress={() => accordionRef.current?.getHeightContent()}
+        >
+          <Text>tes</Text>
+        </TouchableOpacity>
         {array.map(({ image, events, county, title }) => (
           <AnimatedAccordion
+            ref={accordionRef}
             key={title}
-            isUnmountedContent={false}
             onAnimatedEndExpanded={() => console.log('expanded')}
-            onAnimatedEndCollapsed={() => console.log('collapsed')}
+            onAnimatedEndCollapsed={() => null}
             handleContentTouchable={() => (
               <View style={styles.row}>
                 <Image

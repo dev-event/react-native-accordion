@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
 
 ## Props
 
+- `ref?`: ref
 - `isArrow?`: boolean
 - `disabled?`: boolean
 - `initExpand?`: boolean
@@ -164,9 +165,41 @@ const styles = StyleSheet.create({
 - `styleTouchable?`: `StyleProp<ViewStyle>`;
 - `styleContainer?`: `StyleProp<ViewStyle>`;
 
+## Props
+
+| name                         | description                                                                                                   | required | type                                                | default |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------- | ------- |
+| `ref`                        | Ref to get access to the Accordion View                                                                       | NO       | ref                                                 |         |
+| `isArrow`                    | If set to false the arrow indicating whether the collapsible-view is expanded or not will not be displayed.   | NO       | boolean                                             | true    |
+| `disabled`                   | Enabled/disabled of clicks header(with arrow)                                                                 | NO       | boolean                                             | false   |
+| `initExpand`                 | If true then the collapsible will be expanded on mounting content(For example: with api)                      | NO       | boolean                                             | false   |
+| `colorIcon`                  | Color tint icon arrow                                                                                         | NO       | string                                              | #16182B |
+| `sizeIcon`                   | Size icon arrow                                                                                               | NO       | number                                              | 16      |
+| `otherProperty`              | Configuration [`TouchableWithoutFeedback`](https://reactnative.dev/docs/touchablewithoutfeedback)             | NO       | ViewProps                                           |         |
+| `isStatusFetching`           | Displays an indicator if the content is loaded from the API.                                                  | NO       | boolean                                             | false   |
+| `isUnmountedContent`         | if true then the collapsible will unmount when closing animation ends. (Memory optimization)                  | NO       | boolean                                             | false   |
+| `activeBackgroundIcon`       | Expanded background color arrow                                                                               | NO       | string                                              | #E5f6FF |
+| `inactiveBackgroundIcon`     | InExpanded background color arrow                                                                             | NO       | string                                              | #FFF0E4 |
+| `contentHeight`              | Default height content (optimization)                                                                         | NO       | number                                              | 0       |
+| `handleIcon`                 | Render custom icon                                                                                            | NO       | JSX.Element                                         |         |
+| `onAnimatedEndExpanded`      | Callback closed Accordion           | NO      | void                                                          | NO       |                                                     |         |
+| `onAnimatedEndCollapsed`     | Callback opened Accordion                                                                                     | NO       | void                                                |         |
+| `handleCustomTouchable`      | Render custom header                                                                                          | NO       | boolean                                             | false   |
+| `handleContentTouchable`     | Render content header                                                                                         | NO       | JSX.Element                                         |         |
+| `handleIndicatorFetching`    | Render JSX.Element(Progress).  Default - ActivityIndicator                                                    | NO       | JSX.Element                                         |         |
+| `renderContent`              | Render content                                                                                                | NO       | JSX.Element                                         |         |
+| `configExpanded`             | Configuration [`withTiming`](https://docs.swmansion.com/react-native-reanimated/docs/api/withTiming).         | NO       | Animated.WithTimingConfig                           |         |
+| `configCollapsed`            | Configuration [`withTiming`](https://docs.swmansion.com/react-native-reanimated/docs/api/withTiming).         | NO       | Animated.WithTimingConfig                           |         |
+| `styleChevron`               | Style Animated.View                                                                                           | NO       | ViewStyle                                           |         |
+| `styleTouchable`             | Style Animated.View                                                                                           | NO       | Animated.AnimateStyle<ViewStyle>                    |         |
+| `styleContainer`             | Style View                                                                                                    | NO       | ViewStyle                                           |         |
+| `onChangeState`              | Callback onChange state Accordion(open/close)                                                                 | NO       | void                                                |         |
+| `openAccordion`              | Available at ref link                                                                                         | NO       | void                                                |         |
+
 ## Methods
 
-- `onChangeState`: (isShowView: boolean) => boolean
+- `onChangeState?`: (isShowView: boolean) => void
+- `openAccordion`: () => void
 
 <h2 id="built-with">Built With ❤️</h2>
 

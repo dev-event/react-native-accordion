@@ -1,4 +1,12 @@
-import React, { useCallback, FC, useMemo, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  forwardRef,
+  useMemo,
+  useEffect,
+  useState,
+  useImperativeHandle,
+  Ref,
+} from 'react';
 import {
   ActivityIndicator,
   TouchableWithoutFeedback,
@@ -16,38 +24,57 @@ import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
 import { styles } from './styles';
 import { useLayout } from '../hooks';
+import {
+  DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
+  DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
+  DEFAULT_EXPANDED_CONTENT_ACCORDION,
+  DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
+  DEFAULT_DISABLED_HEAD_ACCORDION,
+  DEFAULT_PROGRESS_LOADING_API,
+  DEFAULT_SIZE_TINT_CHEVRON,
+  DEFAULT_VISIBLE_CHEVRON,
+  DEFAULT_HEIGHT_CONTENT,
+  DEFAULT_TINT_CHEVRON,
+} from './constant';
 
-const AnimatedAccordion: FC<IAccordionProps> = ({
-  isArrow = true,
-  sizeIcon = 16,
-  disabled = false,
-  colorIcon = '#16182b',
-  initExpand = false,
-  handleIcon,
-  styleChevron,
-  contentHeight = 0,
-  renderContent,
-  otherProperty,
-  onChangeState,
-  styleTouchable,
-  configExpanded,
-  styleContainer,
-  configCollapsed,
-  isStatusFetching = false,
-  isUnmountedContent = false,
-  activeBackgroundIcon = '#e5f6ff',
-  handleCustomTouchable,
-  onAnimatedEndExpanded,
-  onAnimatedEndCollapsed,
-  handleContentTouchable,
-  inactiveBackgroundIcon = '#fff0e4',
-  handleIndicatorFetching,
-}) => {
+export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
+  //props configuration
+  const {
+    isArrow = DEFAULT_VISIBLE_CHEVRON,
+    sizeIcon = DEFAULT_SIZE_TINT_CHEVRON,
+    disabled = DEFAULT_DISABLED_HEAD_ACCORDION,
+    colorIcon = DEFAULT_TINT_CHEVRON,
+    initExpand = DEFAULT_EXPANDED_CONTENT_ACCORDION,
+    handleIcon,
+    styleChevron,
+    contentHeight = DEFAULT_HEIGHT_CONTENT,
+    renderContent,
+    otherProperty,
+    onChangeState,
+    styleTouchable,
+    configExpanded,
+    styleContainer,
+    configCollapsed,
+    isStatusFetching = DEFAULT_PROGRESS_LOADING_API,
+    isUnmountedContent = DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
+    activeBackgroundIcon = DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
+    handleCustomTouchable,
+    onAnimatedEndExpanded,
+    onAnimatedEndCollapsed,
+    handleContentTouchable,
+    inactiveBackgroundIcon = DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
+    handleIndicatorFetching,
+  } = props;
+
   const [layout, onLayout] = useLayout(0);
   const open = useSharedValue(initExpand);
   const size = useSharedValue(contentHeight);
   const [isUnmounted, setUnmountedContent] =
     useState<boolean>(isUnmountedContent);
+
+  useImperativeHandle(ref, () => ({
+    openAccordion,
+  }));
 
   useEffect(() => {
     runOnUI(() => {
@@ -83,7 +110,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
     opacity: progress.value === 0 ? 0 : 1,
   }));
 
-  const handleCollapsed = useCallback(() => {
+  const openAccordion = useCallback(() => {
     if (size.value === 0) {
       runOnUI(setUnmountedContent)(false);
       runOnUI(() => {
@@ -159,7 +186,7 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
   return (
     <>
       <TouchableWithoutFeedback
-        onPress={handleCollapsed}
+        onPress={openAccordion}
         disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
@@ -173,6 +200,4 @@ const AnimatedAccordion: FC<IAccordionProps> = ({
       </Animated.View>
     </>
   );
-};
-
-export default AnimatedAccordion;
+});
