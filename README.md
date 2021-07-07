@@ -28,7 +28,6 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Props](#props)
-- [Methods](#methods)
 - [Example](#example)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -195,11 +194,6 @@ const styles = StyleSheet.create({
 | `styleContainer`             | Style View                                                                                                    | NO       | ViewStyle                                           |         |
 | `onChangeState`              | Callback onChange state Accordion(open/close)                                                                 | NO       | void                                                |         |
 | `openAccordion`              | Available at ref link                                                                                         | NO       | void                                                |         |
-
-## Methods
-
-- `onChangeState?`: (isShowView: boolean) => void
-- `openAccordion`: () => void
 
 <h2 id="built-with">Built With ❤️</h2>
 
