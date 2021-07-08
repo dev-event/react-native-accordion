@@ -72,7 +72,7 @@ $ yarn add @dev-event/react-native-accordion
 For more complete example open [App.tsx](https://github.com/dev-event/react-native-accordion/blob/main/example/src/App.tsx)
 
 ```tsx
-import React, { useState, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { StyleSheet, View, Text,  StatusBar} from "react-native";
 import AnimatedAccordion from "@dev-event/react-native-accordion";
 
