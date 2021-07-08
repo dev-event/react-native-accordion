@@ -78,6 +78,8 @@ import AnimatedAccordion from "@dev-event/react-native-accordion";
 
 
 const App: React.FC = () => {
+  const accordionRef = useRef<AnimatedAccordion>(null);
+
   const [show, setShow] = useState<boolean>(false);
 
   const handleContentTouchable = useCallback(() => {
@@ -88,10 +90,17 @@ const App: React.FC = () => {
     return <Text style={styles.message}>Sample content</Text>
   }, [])
 
+  const handleOpenAccordion = useCallback(() => {
+    accordionRef.current?.openAccordion();
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <View style={styles.content}>
+          <TouchableOpacity style={styles.button} onPress={handleOpenAccordion}>
+            <Text>Open Accordion</Text>
+          </TouchableOpacity>
           <AnimatedAccordion
             sizeIcon={16}
             styleChevron={styles.icon}
@@ -131,6 +140,9 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
   },
+  button: {
+    padding: 16,
+  },
 });
 
 ```
@@ -147,6 +159,7 @@ const styles = StyleSheet.create({
 | `sizeIcon`                   | Size icon arrow                                                                                               | NO       | number                                              | 16      |
 | `otherProperty`              | Configuration [`TouchableWithoutFeedback`](https://reactnative.dev/docs/touchablewithoutfeedback)             | NO       | ViewProps                                           |         |
 | `isStatusFetching`           | Displays an indicator if the content is loaded from the API.                                                  | NO       | boolean                                             | false   |
+| `initialMountedContent`      | Start mounted content (Memory optimization)                                                                   | YES      | boolean                                             | false   |
 | `isUnmountedContent`         | if true then the collapsible will unmount when closing animation ends. (Memory optimization)                  | NO       | boolean                                             | false   |
 | `activeBackgroundIcon`       | Expanded background color arrow                                                                               | NO       | string                                              | #E5f6FF |
 | `inactiveBackgroundIcon`     | InExpanded background color arrow                                                                             | NO       | string                                              | #FFF0E4 |
@@ -160,7 +173,7 @@ const styles = StyleSheet.create({
 | `renderContent`              | Render content                                                                                                | NO       | JSX.Element                                         |         |
 | `configExpanded`             | Configuration [`withTiming`](https://docs.swmansion.com/react-native-reanimated/docs/api/withTiming).         | NO       | Animated.WithTimingConfig                           |         |
 | `configCollapsed`            | Configuration [`withTiming`](https://docs.swmansion.com/react-native-reanimated/docs/api/withTiming).         | NO       | Animated.WithTimingConfig                           |         |
-| `styleChevron`               | Style Animated.View                                                                                           | NO       | ViewStyle                                           |         |
+| `styleChevron`               | Style Animated.View                                                                                           | NO       | Animated.AnimateStyle<ViewStyle>                    |         |
 | `styleTouchable`             | Style Animated.View                                                                                           | NO       | Animated.AnimateStyle<ViewStyle>                    |         |
 | `styleContainer`             | Style View                                                                                                    | NO       | ViewStyle                                           |         |
 | `onChangeState`              | Callback onChange state Accordion(open/close)                                                                 | NO       | void                                                |         |
