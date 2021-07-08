@@ -26,9 +26,14 @@ export interface IAccordionProps {
   contentHeight: number;
 
   /**
-   *  unmounted content
+   *  unmounted content animated end
    */
   isUnmountedContent?: boolean;
+
+  /**
+   *  initialMountedContent default start,
+   */
+  initialMountedContent: boolean;
 
   /**
    *

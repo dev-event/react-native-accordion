@@ -1,14 +1,31 @@
 import * as React from 'react';
-import { StyleSheet, Text, Image, Alert, Pressable, View } from 'react-native';
-
-const Event = ({
-  commandOne,
-  commandTwo,
+import {
+  StyleSheet,
+  Text,
+  Image,
+  Alert,
+  Pressable,
+  View,
+  ImageProps,
+} from 'react-native';
+import { FC } from 'react';
+type IEvent = {
+  type: string;
+  iconOne: ImageProps;
+  iconTwo: ImageProps;
+  scoreOne: number;
+  scoreTwo: number;
+  commandOne: string;
+  commandTwo: string;
+};
+const Event: FC<IEvent> = ({
+  type,
   iconOne,
   iconTwo,
-  type,
   scoreOne,
   scoreTwo,
+  commandOne,
+  commandTwo,
 }) => (
   <Pressable
     style={styles.sport}
