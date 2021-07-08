@@ -102,6 +102,7 @@ const App: React.FC = () => {
             <Text>Open Accordion</Text>
           </TouchableOpacity>
           <AnimatedAccordion
+            ref={accordionRef}
             sizeIcon={16}
             styleChevron={styles.icon}
             renderContent={handleContent}
