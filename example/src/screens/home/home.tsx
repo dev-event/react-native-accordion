@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -6,102 +6,20 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import AnimatedAccordion from '../../../../src';
-import { FC, useCallback, useRef } from 'react';
+import { FC, useCallback } from 'react';
 import { assets } from '../../assets';
 import { Sport, Event } from '../../components';
-import { Array, Sports } from './types';
+import { sports, array } from './constants';
 
-const sports: Sports[] = [
-  { image: assets.pingpong, title: 'Ping-pong' },
-  { image: assets.badminton, title: 'Badminton' },
-  { image: assets.baseball, title: 'Baseball' },
-  { image: assets.football, title: 'Football' },
-  { image: assets.tennis, title: 'Tennis' },
-  { image: assets.basketball, title: 'Basketball' },
-];
-
-const array: Array[] = [
-  {
-    image: assets.flag_1,
-    title: 'La League',
-    county: 'Spain',
-    events: [
-      {
-        command: {
-          one: 'Barcelona',
-          two: 'Liverpoll',
-        },
-        icon: {
-          one: assets.real_betis,
-          two: assets.tottenham,
-        },
-        score: {
-          one: 3,
-          two: 4,
-        },
-        type: 'KL',
-      },
-    ],
-  },
-
-  {
-    image: assets.flag_2,
-    title: 'Basketball League',
-    county: 'Belarus',
-    events: [
-      {
-        command: {
-          one: 'BATE',
-          two: 'Liverpoll',
-        },
-        icon: {
-          one: assets.real_betis,
-          two: assets.tottenham,
-        },
-        score: {
-          one: 3,
-          two: 4,
-        },
-        type: 'HT',
-      },
-    ],
-  },
-  {
-    image: assets.flag_1,
-    title: 'Football League',
-    county: 'Belarus',
-    events: [
-      {
-        command: {
-          one: 'Real Madrid',
-          two: 'Moscow',
-        },
-        icon: {
-          one: assets.real_betis,
-          two: assets.tottenham,
-        },
-        score: {
-          one: 3,
-          two: 4,
-        },
-        type: 'HR',
-      },
-    ],
-  },
-];
 const HomeScreen: FC = () => {
-  const accordionRef = useRef(null);
-
   const handleContent = useCallback(
     (data) =>
       data.map(({ command, icon, score, type }) => (
         <Event
           key={command.one}
           type={type}
-          image={icon}
           scoreOne={score.one}
           scoreTwo={score.two}
           commandOne={command.one}
@@ -155,6 +73,7 @@ const HomeScreen: FC = () => {
       </ScrollView>
     </View>
   );
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -164,17 +83,12 @@ const HomeScreen: FC = () => {
         {hasHeader}
         {hasBanner}
         {hasSports}
-        <TouchableOpacity
-          onPress={() => accordionRef.current?.getHeightContent()}
-        >
-          <Text>tes</Text>
-        </TouchableOpacity>
         {array.map(({ image, events, county, title }) => (
           <AnimatedAccordion
-            ref={accordionRef}
             key={title}
+            initialMountedContent={true}
             onAnimatedEndExpanded={() => console.log('expanded')}
-            onAnimatedEndCollapsed={() => null}
+            onAnimatedEndCollapsed={() => console.log('collapsed')}
             handleContentTouchable={() => (
               <View style={styles.row}>
                 <Image
@@ -197,7 +111,7 @@ const HomeScreen: FC = () => {
     </SafeAreaView>
   );
 };
-export { HomeScreen };
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,10 +1,8 @@
 import React from 'react';
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { assets } from '../assets';
 import { HomeScreen } from '../screens';
 import { Image } from 'react-native';
-
-const { Navigator, Screen } = createBottomTabNavigator();
 
 export enum tabs {
   home = 'home',
@@ -12,6 +10,14 @@ export enum tabs {
   chart = 'chart',
   account = 'account',
 }
+export type BottomTabParamList = {
+  [tabs.home]: undefined;
+  [tabs.discovery]: undefined;
+  [tabs.chart]: undefined;
+  [tabs.account]: undefined;
+};
+
+const { Navigator, Screen } = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomBarNavigator = (): React.ReactElement => (
   <Navigator

@@ -5,9 +5,15 @@ import {
   Image,
   TouchableHighlight,
   Alert,
+  ImageProps,
 } from 'react-native';
+import { FC } from 'react';
 
-const Sport = ({ title, image }) => (
+type ISport = {
+  title: string;
+  image: ImageProps;
+};
+const Sport: FC<ISport> = ({ title, image }) => (
   <TouchableHighlight
     style={styles.sport}
     underlayColor={'#F4A58A'}

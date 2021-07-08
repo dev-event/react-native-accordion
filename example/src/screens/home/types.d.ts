@@ -1,25 +1,29 @@
+import { ImageProps } from 'react-native';
+
 export type Sports = {
   image: string;
   title: string;
 };
 
 type Events = {
-  command: {
-    one: string;
-    two: string;
-  };
-  icon: {
-    one: string;
-    two: string;
-  };
-  score: {
-    one: 3;
-    two: 4;
-  };
+  command: ICommand;
+  icon: IIcon;
+  score: IScore;
   type: string;
 };
+
+type IScore = {
+  [key: string]: number;
+};
+type IIcon = {
+  [key: string]: string;
+};
+type ICommand = {
+  [key: string]: string;
+};
+
 export type Array = {
-  image: string;
+  image: ImageProps;
   title: string;
   county: string;
   events: Events[];
