@@ -5,14 +5,14 @@
 <br>
 
 <h1 align="center">React Native Accordion (Reanimated 2)</h1>
-<p align="center">Performance oriented React Native Accordion 60 FPS.  A simple component of a common use case of collapsible - a visible title with a collapsible view beneath it.</p>
+<p align="center">On the basis of react-native-maps I provide API for drawing polygons.</p>
 <h6 align="center">Made with ❤️ by developer for developers</h6>
 
 <br>
 <p align="center">
 <img src="http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square" alt="build"/>
-<img src="https://img.shields.io/github/issues/dev-event/react-native-accordion" alt="build"/>
-<img src="https://img.shields.io/bitbucket/pr-raw/dev-event/react-native-accordion" alt="build"/>
+<img src="https://img.shields.io/github/issues/dev-event/react-native-maps-draw" alt="build"/>
+<img src="https://img.shields.io/bitbucket/pr-raw/dev-event/react-native-maps-draw" alt="build"/>
 <img src="http://img.shields.io/:license-mit-blue.svg?style=flat-square" alt="build"/>
 </p>
 
