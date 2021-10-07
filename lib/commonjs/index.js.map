@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA","sourcesContent":["export { default } from './accordion';\n// default types\nexport type { IAccordionProps } from './accordion';\n"]}

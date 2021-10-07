@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":["default"],"mappings":"AAAA,SAASA,OAAT,QAAwB,aAAxB","sourcesContent":["export { default } from './accordion';\nexport type { IAccordionProps } from './types';\n"]}
