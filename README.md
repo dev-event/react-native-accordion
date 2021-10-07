@@ -36,21 +36,7 @@
 
 ## Installation
 
-<p>Expo:</p>
-
-
-
-```bash
-$ expo install @dev-event/react-native-accordion
-```
-
-
 <p>React Native (0.60+):</p>
-
-```bash
-$ yarn add @dev-event/react-native-accordion
-```
-and package:
 
 ```bash
 $ yarn add @dev-event/react-native-accordion
