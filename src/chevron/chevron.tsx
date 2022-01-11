@@ -48,9 +48,7 @@ const Chevron = ({
     return handleIcon !== undefined ? handleIcon(progress) : hasIcon;
   }, [handleIcon, hasIcon, progress]);
 
-  const containerAnimatedStyle = useMemo<
-    Animated.AnimatedStyleProp<ViewStyle>[]
-  >(() => [styles.container, style, styleChevron], [style, styleChevron]);
+  const containerAnimatedStyle = useMemo(() => [styles.container, style, styleChevron], [style, styleChevron]);
 
   return (
     <Animated.View style={containerAnimatedStyle}>{renderIcon()}</Animated.View>
