@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { mix, mixColor } from 'react-native-redash';
