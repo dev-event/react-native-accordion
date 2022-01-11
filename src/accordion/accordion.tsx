@@ -115,7 +115,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       : withTiming(0, configCollapsed, unmount)
   );
 
-  const style = useAnimatedStyle<Animated.AnimatedStyleProp<ViewStyle>>(() => ({
+  const style = useAnimatedStyle(() => ({
     height: size.value * progress.value + 1,
     opacity: progress.value === 0 ? 0 : 1,
   }));
@@ -138,6 +138,8 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   }, [isUnmountedContent, onAnimatedEndCollapsed]);
 
   const openAccordion = useCallback(() => {
+    console.log("opening accordian");
+    
     if (size.value === 0) {
       if (!isMounted) setMounted(true);
       runOnUI(setUnmountedContent)(false);
@@ -218,9 +220,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     () => [styles.container, styleContainer],
     [styleContainer]
   );
-  const containerAnimatedStyle = useMemo<
-    Animated.AnimatedStyleProp<ViewStyle>[]
-  >(() => [styles.content, style], [style]);
+  const containerAnimatedStyle = useMemo(() => [styles.content, style], [style]);
 
   return (
     <>

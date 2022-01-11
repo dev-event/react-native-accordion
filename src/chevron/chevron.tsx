@@ -14,7 +14,7 @@ const Chevron = ({
   activeBackgroundIcon,
   inactiveBackgroundIcon,
 }: IChevronProps) => {
-  const style = useAnimatedStyle<Animated.AnimatedStyleProp<ViewStyle>>(() => ({
+  const style = useAnimatedStyle(() => ({
     // @ts-ignore
     backgroundColor: mixColor(
       progress.value,
