@@ -139,8 +139,6 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   }, [isUnmountedContent, onAnimatedEndCollapsed]);
 
   const openAccordion = useCallback(() => {
-    console.log("opening accordian");
-    
     if (size.value === 0) {
       if (!isMounted) setMounted(true);
       runOnUI(setUnmountedContent)(false);
