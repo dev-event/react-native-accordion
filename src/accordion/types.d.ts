@@ -44,7 +44,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleCustomTouchable?: (isOpen: boolean) => FC | null;
+  handleCustomTouchable?: (progress: Animated.SharedValue) => FC | null;
 
   /**
    *
@@ -54,7 +54,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  renderContent?: (isOpen: boolean) => JSX.Element | null;
+  renderContent?: (progress: Animated.SharedValue) => JSX.Element | null;
 
   /**
    * callback change state hide/show content
@@ -74,7 +74,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleContentTouchable?: (isOpen: boolean) => JSX.Element | null;
+  handleContentTouchable?: (progress: Animated.SharedValue) => JSX.Element | null;
   /**
    * component icon.
    */
