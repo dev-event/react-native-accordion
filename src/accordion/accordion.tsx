@@ -192,13 +192,11 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       return null;
     }
 
-    let isOpen = open.value ? true : false
-
     return handleCustomTouchable !== undefined ? (
-      handleCustomTouchable(isOpen)
+      handleCustomTouchable(progress)
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
-        {handleContentTouchable ? handleContentTouchable(isOpen) : null}
+        {handleContentTouchable ? handleContentTouchable(progress) : null}
         {isArrow ? hasLoader : null}
       </Animated.View>
     );
@@ -215,9 +213,8 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     if (isUnmounted && !open.value) {
       return null;
     }
-    let isOpen = open.value ? true : false
 
-    return isMounted && renderContent ? renderContent(isOpen) : null;
+    return isMounted && renderContent ? renderContent(progress) : null;
   }, [isMounted, isUnmounted, open.value, renderContent]);
 
   const contentStyle = useMemo<ViewStyle[]>(
