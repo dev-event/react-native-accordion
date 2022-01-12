@@ -44,7 +44,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleCustomTouchable?: () => FC | null;
+  handleCustomTouchable?: (isOpen: boolean) => FC | null;
 
   /**
    *
@@ -54,7 +54,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  renderContent?: () => JSX.Element | null;
+  renderContent?: (isOpen: boolean) => JSX.Element | null;
 
   /**
    * callback change state hide/show content
@@ -74,7 +74,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleContentTouchable?: () => JSX.Element | null;
+  handleContentTouchable?: (isOpen: boolean) => JSX.Element | null;
   /**
    * component icon.
    */
