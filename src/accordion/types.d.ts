@@ -81,6 +81,11 @@ export interface IAccordionProps {
   handleIcon?: () => FC | null;
 
   /**
+   * Run custom fn on header press.
+   */
+  onPressSideEffect?: () => void;
+
+  /**
    * active background arrow
    */
 
