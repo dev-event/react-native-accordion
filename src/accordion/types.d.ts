@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { ViewStyle, ViewProps } from 'react-native';
+import { ViewStyle, ViewProps, Touchable } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 export interface IAccordionProps {
@@ -39,6 +38,8 @@ export interface IAccordionProps {
    *
    */
   isStatusFetching: boolean;
+
+  TouchableComponent: React.FunctionComponent | React.ComponentClass;
 
   /**
    *

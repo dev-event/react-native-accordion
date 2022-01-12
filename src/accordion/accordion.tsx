@@ -61,6 +61,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     styleContainer,
     configCollapsed,
     isStatusFetching = DEFAULT_PROGRESS_LOADING_API,
+    TouchableComponent = TouchableWithoutFeedback,
     isUnmountedContent = DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
     activeBackgroundIcon = DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
     initialMountedContent = DEFAULT_INITIAL_MOUNTED_CONTENT_ACCORDION,
@@ -224,13 +225,13 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
 
   return (
     <>
-      <TouchableWithoutFeedback
+      <TouchableComponent
         onPress={openAccordion}
         disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
         {renderHeader()}
-      </TouchableWithoutFeedback>
+      </TouchableComponent>
 
       <Animated.View style={containerAnimatedStyle}>
         <View onLayout={onLayout} style={contentStyle}>
