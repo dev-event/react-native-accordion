@@ -113,31 +113,27 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
 
   const progress = useDerivedValue(() =>
     open.value
-      ? withTiming(1, configExpanded, created)
-      : withTiming(0, configCollapsed, unmount)
+      ? withTiming(1, configExpanded, () => {
+        if (onAnimatedEndExpanded !== undefined) {
+          runOnJS(onAnimatedEndExpanded)();
+        }
+      })
+      : withTiming(0, configCollapsed, () => {
+        if (onAnimatedEndCollapsed !== undefined) {
+          runOnJS(onAnimatedEndCollapsed)();
+        }
+    
+        if (isUnmountedContent) {
+          runOnJS(setUnmountedContent)(true);
+          return;
+        }
+      })
   );
 
   const style = useAnimatedStyle(() => ({
     height: size.value * progress.value + 1,
     opacity: progress.value === 0 ? 0 : 1,
   }));
-
-  const created = useCallback(() => {
-    if (onAnimatedEndExpanded !== undefined) {
-      runOnJS(onAnimatedEndExpanded)();
-    }
-  }, [onAnimatedEndExpanded]);
-
-  const unmount = useCallback(() => {
-    if (onAnimatedEndCollapsed !== undefined) {
-      runOnJS(onAnimatedEndCollapsed)();
-    }
-
-    if (isUnmountedContent) {
-      runOnJS(setUnmountedContent)(true);
-      return;
-    }
-  }, [isUnmountedContent, onAnimatedEndCollapsed]);
 
   const openAccordion = useCallback(() => {
     if (size.value === 0) {
