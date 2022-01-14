@@ -24,7 +24,7 @@ import Animated, {
 import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
 import { styles } from './styles';
-import { useLayout, useValidator } from '../hooks';
+import { useValidator } from '../hooks';
 import {
   DEFAULT_INITIAL_MOUNTED_CONTENT_ACCORDION,
   DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
@@ -74,7 +74,6 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     handleIndicatorFetching,
   } = props;
 
-  const [layout, onLayout] = useLayout(0);
   const open = useSharedValue(initExpand);
   const [isUnmounted, setUnmountedContent] = useState<boolean>(isUnmountedContent);
   const [isMounted, setMounted] = useState<boolean>(initialMountedContent);
@@ -83,8 +82,8 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     () =>
       renderContent === null
         ? 0
-        : contentHeight || layout.height || DEFAULT_CONTENT_HEIGHT,
-    [contentHeight, layout.height, renderContent]
+        : contentHeight || DEFAULT_CONTENT_HEIGHT,
+    [contentHeight, renderContent]
   );
 
   const size = useSharedValue(handleHeightContent);
@@ -231,7 +230,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       </TouchableComponent>
 
       <Animated.View style={containerAnimatedStyle}>
-        <View onLayout={onLayout} style={contentStyle}>
+        <View style={contentStyle}>
           {content()}
         </View>
       </Animated.View>
