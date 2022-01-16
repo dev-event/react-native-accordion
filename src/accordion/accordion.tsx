@@ -61,7 +61,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     styleContainer,
     configCollapsed,
     isStatusFetching = DEFAULT_PROGRESS_LOADING_API,
-    onPressSideEffect = () => {},
+    onPressSideEffect = () => { },
     TouchableComponent = TouchableWithoutFeedback,
     isUnmountedContent = DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
     activeBackgroundIcon = DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
@@ -110,23 +110,27 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     })();
   }, [handleHeightContent, isStatusFetching, size]);
 
+  const created = useCallback(() => {
+    if (onAnimatedEndExpanded !== undefined) {
+      runOnJS(onAnimatedEndExpanded)();
+    }
+  }, [onAnimatedEndExpanded]);
+
+  const unmount = useCallback(() => {
+    if (onAnimatedEndCollapsed !== undefined) {
+      runOnJS(onAnimatedEndCollapsed)();
+    }
+
+    if (isUnmountedContent) {
+      runOnJS(setUnmountedContent)(true);
+      return;
+    }
+  }, [isUnmountedContent, onAnimatedEndCollapsed])
+
   const progress = useDerivedValue(() =>
     open.value
-      ? withTiming(1, configExpanded, () => {
-        if (onAnimatedEndExpanded !== undefined) {
-          runOnJS(onAnimatedEndExpanded)();
-        }
-      })
-      : withTiming(0, configCollapsed, () => {
-        if (onAnimatedEndCollapsed !== undefined) {
-          runOnJS(onAnimatedEndCollapsed)();
-        }
-    
-        if (isUnmountedContent) {
-          runOnJS(setUnmountedContent)(true);
-          return;
-        }
-      })
+      ? withTiming(1, configExpanded, runOnJS(created))
+      : withTiming(0, configCollapsed, runOnJS(unmount))
   );
 
   const style = useAnimatedStyle(() => ({
@@ -219,10 +223,15 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   );
   const containerAnimatedStyle = useMemo(() => [styles.content, style], [style]);
 
+  const touchableOnPress = React.useCallback(() => {
+    openAccordion();
+    onPressSideEffect();
+  }, [openAccordion, onPressSideEffect])
+
   return (
     <>
       <TouchableComponent
-        onPress={() => {openAccordion(); onPressSideEffect()}}
+        onPress={touchableOnPress}
         disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
