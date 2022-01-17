@@ -17,15 +17,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 14,
     paddingHorizontal: 12,
-    height: 80
+    height: 80,
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
   },
-  indicator:{
-    marginLeft:  12
-  }
+  indicator: {
+    marginLeft: 12,
+  },
 });
 
 export { styles };
