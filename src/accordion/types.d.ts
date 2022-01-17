@@ -133,4 +133,6 @@ export interface IAccordionProps {
    *
    */
   configCollapsed?: Animated.WithTimingConfig;
+
+  needsMoreSpaceForScroll?: boolean;
 }
