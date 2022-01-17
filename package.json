@@ -1,6 +1,6 @@
 {
   "name": "@dev-event/react-native-accordion",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -26,7 +26,7 @@
     "typescript": "tsc --noEmit",
     "prepare": "bob build",
     "release": "release-it",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
@@ -40,9 +40,10 @@
     "collapsed",
     "accordion",
     "expanded",
+    "reanimated-2",
     "animated view"
   ],
-  "repository": "https://github.com/dev-event/react-native-accordion",
+  "repository": "https://github.com/wellocution/react-native-accordion",
   "author": "dev-event <effectwaater@gmail.com> (https://github.com/dev-event)",
   "license": "MIT",
   "bugs": {
