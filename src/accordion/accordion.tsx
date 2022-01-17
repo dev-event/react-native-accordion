@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
+  useWindowDimensions,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -83,13 +84,14 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     handleContentTouchable,
     inactiveBackgroundIcon = DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
     handleIndicatorFetching,
+    needsMoreSpaceForScroll,
   } = props;
-
+  const { height } = useWindowDimensions();
   const open = useSharedValue(initExpand);
   const [isUnmounted, setUnmountedContent] =
     useState<boolean>(isUnmountedContent);
   const [isMounted, setMounted] = useState<boolean>(initialMountedContent);
-
+  const [addExtraSpace, setAddExtraSpace] = useState<boolean>(false);
   const handleHeightContent = useMemo(
     () =>
       renderContent === null ? 0 : contentHeight || DEFAULT_CONTENT_HEIGHT,
@@ -125,6 +127,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       runOnJS(onAnimatedEndExpanded)();
     }
     runOnUI(setMounted)(true);
+    runOnJS(setAddExtraSpace)(false);
   }, [onAnimatedEndExpanded]);
 
   const unmount = useCallback(() => {
@@ -241,10 +244,18 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
 
   const touchableOnPress = React.useCallback(() => {
     openAccordion();
-    if (!open.value) {
+    if (!open.value && !needsMoreSpaceForScroll) {
       onPressSideEffect();
-    }
+    } else if (!open.value && needsMoreSpaceForScroll) {
+      setAddExtraSpace(true);
+    };
   }, [openAccordion, onPressSideEffect, open.value]);
+
+  React.useEffect(() => {
+    if (needsMoreSpaceForScroll && addExtraSpace) {
+      onPressSideEffect()
+    }
+  }, [addExtraSpace])
 
   return (
     <>
@@ -259,6 +270,9 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       <Animated.View style={containerAnimatedStyle}>
         <View style={contentStyle}>{content()}</View>
       </Animated.View>
+      {addExtraSpace ? (
+        <View style={{ height }} />
+      ) : null}
     </>
   );
 });
