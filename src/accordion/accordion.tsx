@@ -40,6 +40,18 @@ import {
   DEFAULT_CONTENT_HEIGHT,
 } from './constant';
 
+const DefaultLoading = () => {
+  return (
+    <View style={{ padding: 20 }}>
+      <ActivityIndicator
+        size="large"
+        color="#AAAAAA"
+        style={styles.indicator}
+      />
+    </View>
+  );
+};
+
 export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   useValidator(props);
   //props configuration
@@ -72,18 +84,6 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     inactiveBackgroundIcon = DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
     handleIndicatorFetching,
   } = props;
-
-  const DefaultLoading = () => {
-    return (
-      <View style={{ padding: 20 }}>
-        <ActivityIndicator
-          size="large"
-          color="#AAAAAA"
-          style={styles.indicator}
-        />
-      </View>
-    );
-  };
 
   const open = useSharedValue(initExpand);
   const [isUnmounted, setUnmountedContent] =
@@ -151,14 +151,11 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   }));
 
   const openAccordion = useCallback(() => {
-    if (size.value === 0) {
-      if (!isMounted) setMounted(true);
-      runOnUI(setUnmountedContent)(false);
-      runOnUI(() => {
-        'worklet';
-        size.value = handleHeightContent;
-      })();
-    }
+    runOnUI(setUnmountedContent)(false);
+    runOnUI(() => {
+      'worklet';
+      size.value = handleHeightContent;
+    })();
     open.value = !open.value;
     onChangeState && onChangeState(!open.value);
   }, [handleHeightContent, isMounted, onChangeState, open, size]);
@@ -226,6 +223,10 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       return null;
     }
 
+    if (!isMounted && !isUnmounted) {
+      return <DefaultLoading />
+    }
+
     return isMounted && renderContent ? renderContent(progress) : null;
   }, [isMounted, isUnmounted, open.value, renderContent]);
 
@@ -237,10 +238,6 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     () => [styles.content, style],
     [style]
   );
-
-  if (!isMounted && !isUnmounted) {
-    return <DefaultLoading />;
-  }
 
   const touchableOnPress = React.useCallback(() => {
     openAccordion();
