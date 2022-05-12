@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { ViewStyle, ViewProps } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
@@ -40,10 +39,12 @@ export interface IAccordionProps {
    */
   isStatusFetching: boolean;
 
+  TouchableComponent: React.FunctionComponent | React.ComponentClass;
+
   /**
    *
    */
-  handleCustomTouchable?: () => FC | null;
+  handleCustomTouchable?: (progress: Animated.SharedValue) => FC | null;
 
   /**
    *
@@ -53,7 +54,7 @@ export interface IAccordionProps {
   /**
    *
    */
-  renderContent?: () => JSX.Element | null;
+  renderContent?: (progress: Animated.SharedValue) => JSX.Element | null;
 
   /**
    * callback change state hide/show content
@@ -73,11 +74,18 @@ export interface IAccordionProps {
   /**
    *
    */
-  handleContentTouchable?: () => JSX.Element | null;
+  handleContentTouchable?: (
+    progress: Animated.SharedValue
+  ) => JSX.Element | null;
   /**
    * component icon.
    */
   handleIcon?: () => FC | null;
+
+  /**
+   * Run custom fn on header press.
+   */
+  onPressSideEffect?: () => void;
 
   /**
    * active background arrow
@@ -125,4 +133,6 @@ export interface IAccordionProps {
    *
    */
   configCollapsed?: Animated.WithTimingConfig;
+
+  needsMoreSpaceForScroll?: boolean;
 }

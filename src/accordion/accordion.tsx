@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
+  useWindowDimensions,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -24,7 +25,7 @@ import Animated, {
 import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
 import { styles } from './styles';
-import { useLayout, useValidator } from '../hooks';
+import { useValidator } from '../hooks';
 import {
   DEFAULT_INITIAL_MOUNTED_CONTENT_ACCORDION,
   DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
@@ -40,9 +41,20 @@ import {
   DEFAULT_CONTENT_HEIGHT,
 } from './constant';
 
-export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
+const DefaultLoading = () => {
+  return (
+    <View style={{ padding: 20 }}>
+      <ActivityIndicator
+        size="large"
+        color="#AAAAAA"
+        style={styles.indicator}
+      />
+    </View>
+  );
+};
 
-  useValidator(props)
+export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
+  useValidator(props);
   //props configuration
   const {
     isArrow = DEFAULT_VISIBLE_CHEVRON,
@@ -61,6 +73,8 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     styleContainer,
     configCollapsed,
     isStatusFetching = DEFAULT_PROGRESS_LOADING_API,
+    onPressSideEffect = () => {},
+    TouchableComponent = TouchableWithoutFeedback,
     isUnmountedContent = DEFAULT_UNMOUNTED_CONTENT_ACCORDION,
     activeBackgroundIcon = DEFAULT_ACTIVE_BACKGROUND_CHEVRON,
     initialMountedContent = DEFAULT_INITIAL_MOUNTED_CONTENT_ACCORDION,
@@ -70,19 +84,18 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     handleContentTouchable,
     inactiveBackgroundIcon = DEFAULT_INACTIVE_BACKGROUND_CHEVRON,
     handleIndicatorFetching,
+    needsMoreSpaceForScroll,
   } = props;
-
-  const [layout, onLayout] = useLayout(0);
+  const { height } = useWindowDimensions();
   const open = useSharedValue(initExpand);
-  const [isUnmounted, setUnmountedContent] = useState<boolean>(isUnmountedContent);
+  const [isUnmounted, setUnmountedContent] =
+    useState<boolean>(isUnmountedContent);
   const [isMounted, setMounted] = useState<boolean>(initialMountedContent);
-
+  const [addExtraSpace, setAddExtraSpace] = useState<boolean>(false);
   const handleHeightContent = useMemo(
     () =>
-      renderContent === null
-        ? 0
-        : contentHeight || layout.height || DEFAULT_CONTENT_HEIGHT,
-    [contentHeight, layout.height, renderContent]
+      renderContent === null ? 0 : contentHeight || DEFAULT_CONTENT_HEIGHT,
+    [contentHeight, renderContent]
   );
 
   const size = useSharedValue(handleHeightContent);
@@ -109,21 +122,12 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     })();
   }, [handleHeightContent, isStatusFetching, size]);
 
-  const progress = useDerivedValue(() =>
-    open.value
-      ? withTiming(1, configExpanded, created)
-      : withTiming(0, configCollapsed, unmount)
-  );
-
-  const style = useAnimatedStyle<Animated.AnimatedStyleProp<ViewStyle>>(() => ({
-    height: size.value * progress.value + 1,
-    opacity: progress.value === 0 ? 0 : 1,
-  }));
-
   const created = useCallback(() => {
     if (onAnimatedEndExpanded !== undefined) {
       runOnJS(onAnimatedEndExpanded)();
     }
+    runOnUI(setMounted)(true);
+    runOnJS(setAddExtraSpace)(false);
   }, [onAnimatedEndExpanded]);
 
   const unmount = useCallback(() => {
@@ -133,19 +137,28 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
 
     if (isUnmountedContent) {
       runOnJS(setUnmountedContent)(true);
+      setMounted(false);
       return;
     }
   }, [isUnmountedContent, onAnimatedEndCollapsed]);
 
+  const progress = useDerivedValue(() =>
+    open.value
+      ? withTiming(1, configExpanded, runOnJS(created))
+      : withTiming(0, configCollapsed, runOnJS(unmount))
+  );
+
+  const style = useAnimatedStyle(() => ({
+    height: size.value * progress.value + 1,
+    opacity: progress.value === 0 ? 0 : 1,
+  }));
+
   const openAccordion = useCallback(() => {
-    if (size.value === 0) {
-      if (!isMounted) setMounted(true);
-      runOnUI(setUnmountedContent)(false);
-      runOnUI(() => {
-        'worklet';
-        size.value = handleHeightContent;
-      })();
-    }
+    runOnUI(setUnmountedContent)(false);
+    runOnUI(() => {
+      'worklet';
+      size.value = handleHeightContent;
+    })();
     open.value = !open.value;
     onChangeState && onChangeState(!open.value);
   }, [handleHeightContent, isMounted, onChangeState, open, size]);
@@ -190,17 +203,19 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     if (handleCustomTouchable === null) {
       return null;
     }
+
     return handleCustomTouchable !== undefined ? (
-      handleCustomTouchable()
+      handleCustomTouchable(progress)
     ) : (
       <Animated.View style={[styles.header, styleTouchable]}>
-        {handleContentTouchable ? handleContentTouchable() : null}
+        {handleContentTouchable ? handleContentTouchable(progress) : null}
         {isArrow ? hasLoader : null}
       </Animated.View>
     );
   }, [
     isArrow,
     hasLoader,
+    open.value,
     styleTouchable,
     handleCustomTouchable,
     handleContentTouchable,
@@ -211,32 +226,53 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       return null;
     }
 
-    return isMounted && renderContent ? renderContent() : null;
+    if (!isMounted && !isUnmounted) {
+      return <DefaultLoading />
+    }
+
+    return isMounted && renderContent ? renderContent(progress) : null;
   }, [isMounted, isUnmounted, open.value, renderContent]);
 
   const contentStyle = useMemo<ViewStyle[]>(
     () => [styles.container, styleContainer],
     [styleContainer]
   );
-  const containerAnimatedStyle = useMemo<
-    Animated.AnimatedStyleProp<ViewStyle>[]
-  >(() => [styles.content, style], [style]);
+  const containerAnimatedStyle = useMemo(
+    () => [styles.content, style],
+    [style]
+  );
+
+  const touchableOnPress = React.useCallback(() => {
+    openAccordion();
+    if (!open.value && !needsMoreSpaceForScroll) {
+      onPressSideEffect();
+    } else if (!open.value && needsMoreSpaceForScroll) {
+      setAddExtraSpace(true);
+    };
+  }, [openAccordion, onPressSideEffect, open.value]);
+
+  React.useEffect(() => {
+    if (needsMoreSpaceForScroll && addExtraSpace) {
+      onPressSideEffect()
+    }
+  }, [addExtraSpace])
 
   return (
     <>
-      <TouchableWithoutFeedback
-        onPress={openAccordion}
+      <TouchableComponent
+        onPress={touchableOnPress}
         disabled={disabled || isStatusFetching}
         {...otherProperty}
       >
         {renderHeader()}
-      </TouchableWithoutFeedback>
+      </TouchableComponent>
 
       <Animated.View style={containerAnimatedStyle}>
-        <View onLayout={onLayout} style={contentStyle}>
-          {content()}
-        </View>
+        <View style={contentStyle}>{content()}</View>
       </Animated.View>
+      {addExtraSpace ? (
+        <View style={{ height }} />
+      ) : null}
     </>
   );
 });
