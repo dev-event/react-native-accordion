@@ -143,6 +143,6 @@
     "invariant": "^2.2.4",
     "react-native-reanimated": "2.8.0",
     "react-native-redash": "16.2.4",
-    "react-native-svg": "12.3.1"
+    "react-native-svg": "^12.3.1"
   }
 }
