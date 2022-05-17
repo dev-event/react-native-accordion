@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
 | `styleContainer`             | Style View                                                                                                    | NO       | ViewStyle                                           |         |
 | `onChangeState`              | Callback onChange state Accordion(open/close)                                                                 | NO       | void                                                |         |
 | `openAccordion`              | Available at ref link                                                                                         | NO       | void                                                |         |
-| `TouchableComponent`         | Header touchable wrapper     | NO | TouchableWithoutFeedback
 
 <h2 id="built-with">Built With ❤️</h2>
 
