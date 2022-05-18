@@ -1,6 +1,6 @@
 {
   "name": "@dev-event/react-native-accordion",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A performant interactive collapsed view with fully configurable options",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -53,83 +53,31 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^11.0.0",
-    "@react-native-community/eslint-config": "^2.0.0",
-    "@release-it/conventional-changelog": "^2.0.0",
+    "@react-native-community/eslint-config": "^3.0.0",
+    "@release-it/conventional-changelog": "^2.0.1",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/jest": "^26.0.0",
-    "@types/react": "~16.9.35",
-    "@types/react-native": "~0.63.2",
-    "commitlint": "^11.0.0",
-    "eslint": "^7.2.0",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.2.5",
+    "@types/invariant": "^2.2.34",
+    "@types/react": "^17.0.5",
+    "@types/react-native": "^0.64.5",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
-    "prettier": "^2.0.5",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
     "react-native-builder-bob": "^0.18.0",
-    "release-it": "^14.2.2",
-    "typescript": "~4.0.0"
+    "release-it": "^14.10.1",
+    "typescript": "^4.2.4",
+    "react-native-reanimated": "2.4.1"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": "2.1.0"
-  },
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn lint && yarn typescript"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@react-native-community",
-      "prettier"
-    ]
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
+    "react-native-reanimated": ">=2.1.0"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -137,17 +85,11 @@
     "targets": [
       "commonjs",
       "module",
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
+      "typescript"
     ]
   },
   "dependencies": {
-    "invariant": "2.2.4",
-    "react-native-reanimated": "2.4.1",
+    "invariant": "^2.2.4",
     "react-native-redash": "16.0.11",
     "react-native-svg": "12.3.0"
   }

@@ -41,6 +41,8 @@ import {
   DEFAULT_CONTENT_HEIGHT,
 } from './constant';
 
+
+
 export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
   useValidator(props);
   //props configuration

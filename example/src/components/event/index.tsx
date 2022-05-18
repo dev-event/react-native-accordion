@@ -8,7 +8,7 @@ import {
   View,
   ImageProps,
 } from 'react-native';
-import { FC } from 'react';
+import type { FC } from 'react';
 type IEvent = {
   type: string;
   iconOne: ImageProps;
