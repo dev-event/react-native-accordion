@@ -20,6 +20,7 @@ import Animated, {
   withTiming,
   runOnUI,
   runOnJS,
+  AnimatedStyleProp
 } from 'react-native-reanimated';
 import Chevron from '../chevron';
 import type { IAccordionProps } from './types';
@@ -115,7 +116,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
       : withTiming(0, configCollapsed, unmount)
   );
 
-  const style = useAnimatedStyle<Animated.AnimatedStyleProp<ViewStyle>>(() => ({
+  const style = useAnimatedStyle<AnimatedStyleProp<ViewStyle>>(() => ({
     height: size.value * progress.value + 1,
     opacity: progress.value === 0 ? 0 : 1,
   }));
@@ -219,7 +220,7 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
     [styleContainer]
   );
   const containerAnimatedStyle = useMemo<
-    Animated.AnimatedStyleProp<ViewStyle>[]
+    AnimatedStyleProp<ViewStyle>[]
   >(() => [styles.content, style], [style]);
 
   return (
