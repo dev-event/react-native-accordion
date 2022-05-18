@@ -41,8 +41,7 @@ import {
 } from './constant';
 
 export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
-
-  useValidator(props)
+  useValidator(props);
   //props configuration
   const {
     isArrow = DEFAULT_VISIBLE_CHEVRON,
@@ -74,7 +73,8 @@ export default forwardRef((props: IAccordionProps, ref: Ref<any>) => {
 
   const [layout, onLayout] = useLayout(0);
   const open = useSharedValue(initExpand);
-  const [isUnmounted, setUnmountedContent] = useState<boolean>(isUnmountedContent);
+  const [isUnmounted, setUnmountedContent] =
+    useState<boolean>(isUnmountedContent);
   const [isMounted, setMounted] = useState<boolean>(initialMountedContent);
 
   const handleHeightContent = useMemo(

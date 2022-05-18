@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA","sourcesContent":["export { default } from './accordion';\nexport type { IAccordionProps } from './types';\n"]}
+{"version":3,"names":[],"sources":["index.ts"],"sourcesContent":["export { default } from './accordion';\nexport type { IAccordionProps } from './types';\n"],"mappings":";;;;;;;;;;;;AAAA"}

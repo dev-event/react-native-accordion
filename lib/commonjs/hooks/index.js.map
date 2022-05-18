@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAAA;;AACA","sourcesContent":["export { default as useLayout } from './use-layout';\nexport { default as useValidator } from './use-validator';\n"]}
+{"version":3,"names":[],"sources":["index.ts"],"sourcesContent":["export { default as useLayout } from './use-layout';\nexport { default as useValidator } from './use-validator';\n"],"mappings":";;;;;;;;;;;;;;;;;;AAAA;;AACA"}

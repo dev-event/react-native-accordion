@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA","sourcesContent":["export { default } from './chevron';\nexport type { IChevronProps } from './types';\n"]}
+{"version":3,"names":[],"sources":["index.ts"],"sourcesContent":["export { default } from './chevron';\nexport type { IChevronProps } from './types';\n"],"mappings":";;;;;;;;;;;;AAAA"}
