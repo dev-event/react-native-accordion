@@ -146,9 +146,9 @@
     ]
   },
   "dependencies": {
-    "invariant": "^2.2.4",
-    "react-native-reanimated": "2.1.0",
+    "invariant": "2.2.4",
+    "react-native-reanimated": "2.4.1",
     "react-native-redash": "16.0.11",
-    "react-native-svg": "12.1.1"
+    "react-native-svg": "12.3.0"
   }
 }
