@@ -4,8 +4,8 @@
 
 <br>
 
-<h1 align="center">React Native Accordion (Reanimated 2)</h1>
-<p align="center">On the basis of react-native-maps I provide API for drawing polygons.</p>
+<h1 align="center">React Native Accordion (Support Reanimated > 2.0 )</h1>
+<p align="center">Current Version Reanimated 2.4.1</p>
 <h6 align="center">Made with ❤️ by developer for developers</h6>
 
 <br>
